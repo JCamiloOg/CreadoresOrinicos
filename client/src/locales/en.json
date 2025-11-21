@@ -1,0 +1,20 @@
+{
+    "navBar": {
+        "home": "Home",
+        "blog": "Blog",
+        "events": "Events",
+        "services": "Services",
+        "aboutUs": "About Us",
+        "contact": "Contact"
+    },
+    "heroSection": {
+        "slogan": "We dream in order to wake up"
+    },
+    "socialNetworks": {
+        "titleLeft": "Contact",
+        "titleRight": "Social Networks",
+        "copyLink": "Copy link",
+        "copied": "Link copied to clipboard",
+        "goToLink": "Go to link"
+    }
+}

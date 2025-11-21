@@ -1,0 +1,20 @@
+{
+    "navBar": {
+        "home": "Inicio",
+        "blog": "Blog",
+        "events": "Eventos",
+        "services": "Servicios",
+        "aboutUs": "Quienes Somos",
+        "contact": "Contacto"
+    },
+    "heroSection": {
+        "slogan": "Soñamos para despertar"
+    },
+    "socialNetworks": {
+        "titleLeft": "Contacto",
+        "titleRight": "Redes Sociales",
+        "copyLink": "Copiar enlace",
+        "copied": "Enlace copiado al portapapeles",
+        "goToLink": "Abrir enlace"
+    }
+}
