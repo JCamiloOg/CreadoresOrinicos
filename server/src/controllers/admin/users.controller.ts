@@ -18,7 +18,6 @@ export async function login(req: Request<unknown, unknown, { username: string; p
         if (user.status === 0) return res.status(401).json({ message: "Usuario inactivo." });
 
         const passwordMatch = await bcrypt.compare(password, user.password);
-        console.log(password, user.password);
 
         if (!passwordMatch) return res.status(401).json({ message: "Contraseña incorrecta." });
 
@@ -53,7 +52,7 @@ export async function createUser(req: Request<unknown, unknown, { username: stri
 
         const response = await insertUser(ID, username, hashedPassword);
 
-        if (response.affectedRows < 0) return res.status(500).json({ message: "Error al crear el usuario." });
+        if (response.affectedRows <= 0) return res.status(500).json({ message: "Error al crear el usuario." });
 
         return res.status(201).json({ message: "Usuario creado correctamente." });
 
@@ -104,16 +103,15 @@ export async function updateUser(req: Request<{ id: string }, unknown, { usernam
     }
 }
 
-export async function updateStatus(req: Request<{ id: string; }, unknown, { status: number; }>, res: Response<{ message: string; }>) {
+export async function updateStatus(req: Request<{ id: string; }, unknown, { status: 0 | 1; }>, res: Response<{ message: string; }>) {
     try {
         const { id } = req.params;
         const { status } = req.body;
 
-        if (status != 1) {
-            await modifyStatusUser(id, 0);
-        } else {
-            await modifyStatusUser(id, 1);
-        }
+
+        const response = await modifyStatusUser(id, status);
+
+        if (response.affectedRows <= 0) return res.status(500).json({ message: "Error al actualizar el estado del usuario." });
 
         res.status(200).json({ message: "Estado del usuario actualizado correctamente." });
     } catch (error) {
