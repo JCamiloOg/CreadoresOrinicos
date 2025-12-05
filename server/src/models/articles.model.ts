@@ -1,0 +1,90 @@
+import conn from "@/config/db";
+import { Article, ArticleByID } from "@/types/articles";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
+
+
+export async function findAllArticles() {
+    try {
+        const [row] = await conn.query<Article[] & RowDataPacket[]>("SELECT a.date, a.id, a.main_image, a.status, a.delete_at, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id");
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los artículos.");
+    }
+}
+
+export async function findArticleByID(id: number) {
+    try {
+        const [row] = await conn.query<ArticleByID[] & RowDataPacket[]>("SELECT a.id, a.date, a.main_image, a.status, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id WHERE a.id = ?", [id]);
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener el artículo por ID.");
+    }
+}
+
+export async function insertArticle(date: string, main_image: string) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("INSERT INTO articles (date, main_image) VALUES (?, ?)", [date, main_image]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al crear el artículo.");
+    }
+}
+
+export async function insertArticleTranslations(id: number, lang: "es" | "en", title: string, subtitle: string, description: string) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("INSERT INTO articles_translations (lang, title, subtitle, text, article_id) VALUES (?, ?, ?, ?, ?)", [lang, title, subtitle, description, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al crear las traducciones del artículo.");
+    }
+}
+
+export async function modifyArticle(date: string, id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE articles SET date = ? WHERE id = ?", [date, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar el artículo.");
+    }
+}
+
+export async function modifyArticleImage(image: string, id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE articles SET main_image = ? WHERE id = ?", [image, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar la imagen del artículo.");
+    }
+
+}
+
+export async function modifyArticleTranslations(id: number, lang: "es" | "en", title: string, subtitle: string, text: string) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE articles_translations SET title = ?, subtitle = ?, text = ? WHERE article_id = ? AND lang = ?", [title, subtitle, text, id, lang]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar las traducciones del artículo.");
+    }
+}
+
+export async function modifyStatusArticle(id: number, status: 0 | 1) {
+    try {
+        if (status == 0) {
+            const [result] = await conn.query<ResultSetHeader>("UPDATE articles SET status = ?, delete_at = NOW() WHERE id = ?", [status, id]);
+            return result;
+        } else {
+            const [result] = await conn.query<ResultSetHeader>("UPDATE articles SET status = ?, delete_at = NULL WHERE id = ?", [status, id]);
+            return result;
+        }
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar el estado del artículo.");
+    }
+}
