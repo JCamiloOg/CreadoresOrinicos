@@ -53,7 +53,6 @@ export const validateUpdateUser = [
         .isString()
         .withMessage("El nombre de usuario debe ser una cadena de texto"),
     body("password")
-        .optional({ checkFalsy: true })
         .trim()
         .isLength({ min: 8 })
         .withMessage("La contraseña debe tener al menos 8 caracteres")
