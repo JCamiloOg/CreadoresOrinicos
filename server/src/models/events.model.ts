@@ -1,0 +1,89 @@
+import conn from "@/config/db";
+import { Events, EventsByID } from "@/types/events";
+import { ResultSetHeader, RowDataPacket } from "mysql2";
+
+export async function findAllEvents() {
+    try {
+        const [row] = await conn.query<Events[] & RowDataPacket[]>("SELECT * FROM events e INNER JOIN events_translations et ON e.id = et.event_id");
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los eventos.");
+    }
+}
+
+
+export async function findEventsByID(id: number) {
+    try {
+        const [row] = await conn.query<EventsByID[] & RowDataPacket[]>("SELECT e.id, e.date, e.hour, e.modality, e.address, e.inscription_link, e.image, e.status, et.lang, et.title, et.description FROM events e INNER JOIN events_translations et ON e.id = et.event_id WHERE e.id = ?", [id]);
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener el evento.");
+    }
+}
+
+export async function insertEvent(date: string, hour: string, modality: "Presencial" | "Virtual", address: string | null, inscription_link: string | null, image: string) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("INSERT INTO events (date, hour, modality, address, inscription_link, image) VALUES (?, ?, ?, ?, ?, ?)", [date, hour, modality, address, inscription_link, image]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al crear el evento.");
+    }
+}
+
+export async function insertEventTranslations(id: number, lang: "es" | "en", title: string, description: string) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("INSERT INTO events_translations (lang, title, description, event_id) VALUES (?, ?, ?, ?)", [lang, title, description, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al crear las traducciones del evento.");
+    }
+}
+
+export async function modifyEvent(date: string, hour: string, modality: "Presencial" | "Virtual", address: string | null, inscription_link: string | null, id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE events SET date = ?, hour = ?, modality = ?, address = ?, inscription_link = ? WHERE id = ?", [date, hour, modality, address, inscription_link, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar el evento.");
+    }
+}
+
+export async function modifyEventImage(image: string, id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE events SET image = ? WHERE id = ?", [image, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar la imagen del evento.");
+    }
+}
+
+export async function modifyEventTranslations(lang: "es" | "en", title: string, description: string, id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE events_translations SET title = ?, description = ? WHERE event_id = ? AND lang = ?", [title, description, id, lang]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar las traduccionesn del evento.");
+    }
+}
+
+export async function modifyStatusEvent(status: 0 | 1, id: number) {
+    try {
+        if (status == 0) {
+            const [result] = await conn.query<ResultSetHeader>("UPDATE events SET status = ?, delete_at = NOW() WHERE id = ?", [status, id]);
+            return result;
+        } else {
+            const [result] = await conn.query<ResultSetHeader>("UPDATE events SET status = ?, delete_at = NULL WHERE id = ?", [status, id]);
+            return result;
+        }
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar el estado del evento.");
+    }
+}

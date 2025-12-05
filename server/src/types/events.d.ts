@@ -1,0 +1,32 @@
+export interface Events {
+    id: number,
+    lang: string,
+    title: string,
+    description: string,
+    date: string,
+    hour: string,
+    modality: "Presencial" | "Virtual",
+    address: string | null,
+    inscription_link: string | null,
+    image: string,
+    status: 0 | 1,
+    delete_at: string | null
+}
+
+
+export type EventsByID = Omit<Events, "delete_at">
+
+export type CreateEvent = Omit<Events, "id" | "lang" | "delete_at" | "status" | "title" | "description" | "image"> & {
+    title_es: string,
+    title_en: string,
+    description_es: string,
+    description_en: string
+}
+
+export type UpdateEvent = Omit<Events, "id" | "lang" | "delete_at" | "status" | "title" | "description" | "image"> & {
+    title_es: string,
+    title_en: string,
+    description_es: string,
+    description_en: string
+}
+
