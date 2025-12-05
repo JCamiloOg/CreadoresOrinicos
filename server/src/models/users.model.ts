@@ -48,9 +48,9 @@ export async function modifyUser(id: string, user: string, password: string) {
     }
 }
 
-export async function modifyStatusUser(id: string, status: number) {
+export async function modifyStatusUser(id: string, status: 0 | 1) {
     try {
-        if (status === 0) {
+        if (status == 0) {
             const [result] = await conn.query<ResultSetHeader>("UPDATE users SET status = ?, delete_at = NOW() WHERE id = ?", [status, id]);
             return result;
         } else {
