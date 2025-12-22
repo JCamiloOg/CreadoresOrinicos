@@ -1,4 +1,4 @@
-import { PORT } from "@/config/env";
+import { HOSTNAME, PORT } from "@/config/env";
 import app from "./app";
 import { createServer } from "http";
 import normalizePort from "./utils/normalizePort";
@@ -6,7 +6,7 @@ import normalizePort from "./utils/normalizePort";
 const port = normalizePort(PORT);
 const server = createServer(app);
 
-server.listen(port);
+server.listen(port, HOSTNAME);
 server.on("listening", onListening);
 server.on("error", onError);
 
