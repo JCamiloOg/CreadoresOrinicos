@@ -4,6 +4,7 @@ import { CORS_ORIGIN } from "./config/env";
 import cookieParser from "cookie-parser";
 import routes from "@/routes/index.routes";
 import morgan from "morgan";
+import { languageMiddlware } from "./middlewares/language.middleware";
 const app = express();
 
 app.use(cors({
@@ -18,7 +19,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// app.use(AuthUser);
+app.use(languageMiddlware);
+
+app.use("/images/articles", express.static("public/articles"));
+app.use("/images/events", express.static("public/events"));
 
 app.use("/api", routes);
 
