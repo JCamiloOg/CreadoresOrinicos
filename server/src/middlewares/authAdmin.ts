@@ -1,5 +1,6 @@
 import { SECRET_KEY } from "@/config/env";
 import { token } from "@/types/user";
+import { t } from "@/utils/t";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
@@ -10,7 +11,7 @@ export async function checkAuthAdmin(req: Request, res: Response, next: NextFunc
 
         if (!token) return res.status(400).json({ redirect: "/" });
 
-        if (!SECRET_KEY) throw new Error("La clave secreta no está definida.");
+        if (!SECRET_KEY) throw new Error(t("auth.SECRET_KEY", req.lang));
 
         jwt.verify(token, SECRET_KEY, (err, decode) => {
             if (err) return res.status(400).json({ redirect: "/" });
