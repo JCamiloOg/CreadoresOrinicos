@@ -16,5 +16,120 @@
         "copyLink": "Copy link",
         "copied": "Link copied to clipboard",
         "goToLink": "Go to link"
+    },
+    "admin": {
+        "siderbar": {
+            "title": "Menu",
+            "settings": "Settings",
+            "events": "Events",
+            "blog": "Blog",
+            "users": "Users",
+            "glossary": "Glossary",
+            "language": "Change language",
+            "logout": "Logout"
+        },
+        "login": {
+            "title": "Login to the admin portal.",
+            "subtitle": "Enter the username and password.",
+            "form": {
+                "username": "Username",
+                "usernamePlaceholder": "Enter your username",
+                "password": "Password",
+                "passwordPlaceholder": "Enter your password.",
+                "errors": {
+                    "username": {
+                        "required": "Username is required.",
+                        "minLength": "Username is too short.",
+                        "maxLength": "Username is too long."
+                    },
+                    "password": {
+                        "required": "Password is required.",
+                        "minLength": "Password is too short.",
+                        "maxLength": "Password is too long."
+                    }
+                },
+                "submit": "Login"
+            }
+        },
+        "blog": {
+            "header": {
+                "link": "Home",
+                "title": "Blog"
+            },
+            "errors": {
+                "requiredTitle": "Title is required.",
+                "requiredSubtitle": "Subtitle is required.",
+                "requiredDescription": "Description is required.",
+                "requiredImage": "Image is required.",
+                "imageExt": "File is invalid.",
+                "maxLengthTitle": "Title is too long.",
+                "maxLengthSubtitle": "Subtitle is too long.",
+                "maxLengthDescription": "Description is too long.",
+                "minLengthTitle": "Title is too short.",
+                "minLengthSubtitle": "Subtitle is too short.",
+                "minLengthDescription": "Description is too short."
+            },
+            "title": "BLOG ARTICLES",
+            "table": {
+                "title": "Title",
+                "subtitle": "Subtitle",
+                "add": "Add article",
+                "date": "Publication date",
+                "status": "Article status",
+                "actions": "Actions",
+                "search": "Search by title",
+                "columns": "Columns",
+                "buttonNext": "Next",
+                "buttonPrev": "Previous",
+                "page": "Page",
+                "of": "of",
+                "status1": "Activated",
+                "status0": "Deactivated",
+                "viewMore": "View more",
+                "editEn": "Edit english version",
+                "editEs": "Edit spanish version",
+                "editImage": "Update image",
+                "changeStatus": "Change status",
+                "noData": "No results with your search."
+            },
+            "dialogs": {
+                "viewMore": {
+                    "titleDialog": "Complete article information",
+                    "title": "Article title",
+                    "subtitle": "Article subtitle",
+                    "date": "Publication date",
+                    "description": "Article description",
+                    "status": "Article status",
+                    "image": "Article image"
+                },
+                "updateVersion": {
+                    "titleDialog": "Update version",
+                    "title": "Article title",
+                    "subtitle": "Article subtitle",
+                    "description": "Article description",
+                    "submit": "Update",
+                    "errors": {
+                        "noData": "The article could not be identified."
+                    }
+                },
+                "updateImage": {
+                    "titleDialog": "Update image",
+                    "submit": "Update",
+                    "image": "Select the new image",
+                    "currentImage": "Current image."
+                },
+                "create": {
+                    "titleDialog": "Create article",
+                    "title_es": "Title in spanish",
+                    "title_en": "Title in english",
+                    "subtitle_es": "Subtitle in spanish",
+                    "subtitle_en": "Subtitle in english",
+                    "description_es": "Description in spanish",
+                    "description_en": "Description in english",
+                    "image": "Image",
+                    "submit": "Create"
+                }
+            }
+        }
     }
 }

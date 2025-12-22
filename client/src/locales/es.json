@@ -16,5 +16,122 @@
         "copyLink": "Copiar enlace",
         "copied": "Enlace copiado al portapapeles",
         "goToLink": "Abrir enlace"
+    },
+    "admin": {
+        "siderbar": {
+            "title": "Menú",
+            "events": "Eventos",
+            "blog": "Blog",
+            "users": "Usuarios",
+            "glossary": "Glosario",
+            "settings": "Configuración",
+            "language": "Cambiar idioma",
+            "logout": "Cerrar sesión"
+        },
+        "login": {
+            "title": "Ingresar al portal de administrador.",
+            "subtitle": "Ingresa el usuario y contraseña.",
+            "form": {
+                "username": "Nombre de Usuario",
+                "usernamePlaceholder": "Ingresa tu nombre de usuario",
+                "password": "Contraseña",
+                "passwordPlaceholder": "Ingresa tu contraseña.",
+                "errors": {
+                    "username": {
+                        "required": "El nombre de usuario es requerido.",
+                        "minLength": "El nombre de usuario es muy corto.",
+                        "maxLength": "El nombre de usuario es muy largo."
+                    },
+                    "password": {
+                        "required": "La contraseña es requerida.",
+                        "minLength": "La contraseña es muy corta.",
+                        "maxLength": "La contraseña es muy larga."
+                    }
+                },
+                "submit": "Ingresar"
+            }
+        },
+        "blog": {
+            "header": {
+                "link": "Inicio",
+                "title": "Blog"
+            },
+            "errors": {
+                "requiredTitle": "El título es requerido.",
+                "requiredSubtitle": "El subtítulo es requerido.",
+                "requiredDescription": "La descripción es requerida.",
+                "requiredImage": "La imagen es requerida.",
+                "imageExt": "El archivo es inválido.",
+                "maxLengthTitle": "El título es muy largo.",
+                "maxLengthSubtitle": "El subtítulo es muy largo.",
+                "maxLengthDescription": "La descripción es muy larga.",
+                "minLengthTitle": "El título es muy corto.",
+                "minLengthSubtitle": "El subtítulo es muy corto.",
+                "minLengthDescription": "La descripción es muy corta."
+            },
+            "title": "ARTICULOS DEL BLOG",
+            "table": {
+                "add": "Añadir artículo",
+                "title": "Titulo",
+                "subtitle": "Subtítulo",
+                "date": "Fecha de publicación",
+                "status": "Estado del artículo",
+                "actions": "Acciones",
+                "search": "Buscar por título",
+                "columns": "Columnas",
+                "buttonNext": "Siguiente",
+                "buttonPrev": "Anterior",
+                "page": "Página",
+                "of": "de",
+                "status1": "Activado",
+                "status0": "Desactivado",
+                "viewMore": "Ver más",
+                "editEn": "Editar versión en inglés",
+                "editEs": "Editar versión en español",
+                "editImage": "Actualizar imagen",
+                "changeStatus": "Cambiar estado",
+                "noData": "No hay resultados con tu búsqueda."
+            },
+            "dialogs": {
+                "viewMore": {
+                    "titleDialog": "información completa del articulo",
+                    "title": "Título del artículo",
+                    "subtitle": "Subtítulo del artículo",
+                    "date": "Fecha de publicación",
+                    "description": "Descripción del artículo",
+                    "status": "Estado del artículo",
+                    "status1": "Activado",
+                    "status0": "Desactivado",
+                    "image": "Imágen del artículo"
+                },
+                "updateVersion": {
+                    "titleDialog": "Actualizar versión",
+                    "title": "Título del artículo",
+                    "subtitle": "Subtítulo del artículo",
+                    "description": "Descripción del artículo",
+                    "submit": "Actualizar",
+                    "errors": {
+                        "noData": "No se ha podido identificar el artículo."
+                    }
+                },
+                "updateImage": {
+                    "titleDialog": "Actualizar imagen",
+                    "submit": "Actualizar",
+                    "image": "Selecciona la nueva imágen",
+                    "currentImage": "Imagen actual."
+                },
+                "create": {
+                    "titleDialog": "Crear artículo",
+                    "title_es": "Título en español",
+                    "title_en": "Título en inglés",
+                    "subtitle_es": "Subtítulo en español",
+                    "subtitle_en": "Subtítulo en inglés",
+                    "description_es": "Descripción en español",
+                    "description_en": "Descripción en inglés",
+                    "image": "Imagen",
+                    "submit": "Crear"
+                }
+            }
+        }
     }
 }
