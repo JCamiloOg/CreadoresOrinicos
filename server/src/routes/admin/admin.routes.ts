@@ -1,4 +1,4 @@
-import { login } from "@/controllers/admin/users.controller";
+import { login, verifySession } from "@/controllers/admin/users.controller";
 import { Router } from "express";
 import { validateLogin } from "@/middlewares/validations/validateUser";
 import { validationErrors } from "@/middlewares/validationsErrors";
@@ -12,6 +12,7 @@ import articleRouter from "./articlesRoutes/articles.routes";
 const router = Router();
 
 router.post("/login", validateLogin, validationErrors, login);
+router.get("/login", verifySession);
 router.use("/users", checkAuthAdmin, usesrRouter);
 router.use("/glossary", checkAuthAdmin, glossaryRouter);
 router.use("/events", checkAuthAdmin, eventsRouter);

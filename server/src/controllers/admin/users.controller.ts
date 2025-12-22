@@ -4,34 +4,56 @@ import bcrypt from "bcrypt";
 import { findAllUsers, findUserByID, findUserByUserName, insertUser, modifyStatusUser, modifyUser } from "@/models/users.model";
 import { SECRET_KEY } from "@/config/env";
 import crypto from "crypto";
-import { User, UserByID } from "@/types/user";
+import { token, User, UserByID } from "@/types/user";
+import { t } from "@/utils/t";
 
 
-export async function login(req: Request<unknown, unknown, { username: string; password: string; }>, res: Response<{ message: string; }>) {
+export async function login(req: Request<unknown, unknown, { username: string; password: string; }>, res: Response<{ message: string; redirect?: string; }>) {
     try {
         const { username, password } = req.body;
-        if (!username || !password) return res.status(400).json({ message: "El usuario y la contraseña son obligatorios." });
-
         const user = await findUserByUserName(username);
 
-        if (!user) return res.status(404).json({ message: "Usuario no encontrado." });
-        if (user.status === 0) return res.status(401).json({ message: "Usuario inactivo." });
+        if (!user) return res.status(404).json({ message: t("auth:USER_NOT_FOUND", req.lang) });
+        if (user.status === 0) return res.status(401).json({ message: t("auth:INACTIVE_USER", req.lang) });
 
         const passwordMatch = await bcrypt.compare(password, user.password);
 
-        if (!passwordMatch) return res.status(401).json({ message: "Contraseña incorrecta." });
+        if (!passwordMatch) return res.status(401).json({ message: t("auth:INVALID_PASSWORD", req.lang) });
 
-        if (!SECRET_KEY) throw new Error("La clave secreta no está definida.");
+        if (!SECRET_KEY) throw new Error(t("auth:SECRET_KEY", req.lang));
 
         const token = jwt.sign({ id: user.id, status: user.status }, SECRET_KEY, { expiresIn: "72h" });
 
         res.cookie("token", token, { httpOnly: true, sameSite: "strict", maxAge: 60 * 60 * 1000 * 72 });
 
-        return res.status(200).json({ message: "Inicio de sesión exitoso." });
+        return res.status(200).json({ message: t("auth:LOGIN_SUCCESSFUL", req.lang), redirect: "/admin/blog" });
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Error al iniciar sesión." });
+        res.status(500).json({ message: t("auth:LOGIN_ERROR", req.lang) });
+    }
+}
+
+export async function verifySession(req: Request, res: Response) {
+    try {
+        const token: string = req.cookies.token;
+
+        if (!token) res.status(401).json({ message: t("auth:UNHAUTHORIZED", req.lang) });
+        if (!SECRET_KEY) throw new Error(t("auth:SECRET_KEY", req.lang));
+
+        jwt.verify(token, SECRET_KEY, (err, decode) => {
+            if (err) res.status(401).json({ message: t("auth:UNHAUTHORIZED", req.lang) });
+
+            const user = decode as token;
+
+            if (user.status === 0) res.status(401).json({ message: t("auth:UNHAUTHORIZED", req.lang) });
+
+            res.status(200).json({ message: t("auth:SESSION_VERIFIED", req.lang), redirect: "/admin/blog" });
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: t("auth:VERIFY_SESSION_ERROR", req.lang) });
     }
 }
 
@@ -120,7 +142,7 @@ export async function updateStatus(req: Request<{ id: string; }, unknown, { stat
     }
 }
 
-export async function logout(_req: Request, res: Response) {
+export async function logout(req: Request, res: Response) {
     res.clearCookie("token");
-    return res.status(200).json({ message: "Cierre de sesión exitoso." });
+    return res.status(200).json({ message: t("auth:LOGOUT_SUCCESSFUL", req.lang), redirect: "/" });
 }

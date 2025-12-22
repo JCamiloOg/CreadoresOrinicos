@@ -11,7 +11,7 @@ export const validateUser = [
         .withMessage("El nombre de usuario debe ser una cadena de texto"),
     body("password")
         .trim()
-        .isLength({ min: 8 })
+        .isLength({ min: 8, max: 100 })
         .withMessage("La contraseña debe tener al menos 8 caracteres")
         .notEmpty()
         .withMessage("La contraseña es obligatoria")
