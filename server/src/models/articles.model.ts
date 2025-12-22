@@ -3,9 +3,9 @@ import { Article, ArticleByID } from "@/types/articles";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 
-export async function findAllArticles() {
+export async function findAllArticles(lang: string) {
     try {
-        const [row] = await conn.query<Article[] & RowDataPacket[]>("SELECT a.date, a.id, a.main_image, a.status, a.delete_at, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id");
+        const [row] = await conn.query<Article[] & RowDataPacket[]>("SELECT a.date, a.id, a.main_image, a.status, a.delete_at, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id WHERE at.lang = ?", [lang]);
         return row;
     } catch (error) {
         console.error(error);
@@ -13,9 +13,9 @@ export async function findAllArticles() {
     }
 }
 
-export async function findArticleByID(id: number) {
+export async function findArticleByID(id: number, lang?: string) {
     try {
-        const [row] = await conn.query<ArticleByID[] & RowDataPacket[]>("SELECT a.id, a.date, a.main_image, a.status, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id WHERE a.id = ?", [id]);
+        const [row] = await conn.query<ArticleByID[] & RowDataPacket[]>("SELECT a.id, a.date, a.main_image, a.status, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id WHERE a.id = ? AND at.lang = ?", [id, lang || "es"]);
         return row;
     } catch (error) {
         console.error(error);
@@ -64,7 +64,7 @@ export async function modifyArticleImage(image: string, id: number) {
 
 }
 
-export async function modifyArticleTranslations(id: number, lang: "es" | "en", title: string, subtitle: string, text: string) {
+export async function modifyArticleTranslations(id: number, lang: string, title: string, subtitle: string, text: string) {
     try {
         const [result] = await conn.query<ResultSetHeader>("UPDATE articles_translations SET title = ?, subtitle = ?, text = ? WHERE article_id = ? AND lang = ?", [title, subtitle, text, id, lang]);
         return result;
