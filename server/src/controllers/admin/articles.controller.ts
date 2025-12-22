@@ -1,29 +1,30 @@
-import { findAllArticles, findArticleByID, insertArticle, insertArticleTranslations, modifyArticle, modifyArticleImage, modifyArticleTranslations, modifyStatusArticle } from "@/models/articles.model";
+import { findAllArticles, findArticleByID, insertArticle, insertArticleTranslations, modifyArticleImage, modifyArticleTranslations, modifyStatusArticle } from "@/models/articles.model";
 import { Article, ArticleByID, CreateArticle, UpdateArticle } from "@/types/articles";
+import { t } from "@/utils/t";
 import { Request, Response } from "express";
 import { unlinkSync } from "fs";
 import path from "path";
 import sharp from "sharp";
 
 
-export async function getArticles(req: Request<{ id: string }>, res: Response<{ message: string, articles?: Article[] | ArticleByID[] }>) {
+export async function getArticles(req: Request<{ id: string }, unknown, unknown, { lang?: string }>, res: Response<{ message: string, articles?: Article[] | ArticleByID[] }>) {
     try {
         const { id } = req.params;
-
+        const { lang } = req.query;
         if (id) {
-            const article = await findArticleByID(Number(id));
+            const article = await findArticleByID(Number(id), lang || req.lang);
 
-            if (!article) return res.status(404).json({ message: "Artículo no encontrado." });
+            if (!article) return res.status(404).json({ message: t("articles:ARTICLE_NOT_FOUND", req.lang) });
 
-            return res.status(200).json({ message: "Artículo obtenido correctamente.", articles: article });
+            return res.status(200).json({ message: t("articles:ARTICLE_GET_SUCCESS", req.lang), articles: article });
         }
 
-        const articles = await findAllArticles();
+        const articles = await findAllArticles(req.lang);
 
-        return res.status(200).json({ message: "Artículos obtenidos correctamente.", articles });
+        return res.status(200).json({ message: t("articles:ARTICLES_GET_SUCCESS", req.lang), articles });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al obtener los artículos." });
+        return res.status(500).json({ message: t("articles:ARTICLES_GET_ERROR", req.lang) });
     }
 }
 
@@ -32,7 +33,7 @@ export async function createArticle(req: Request<unknown, unknown, CreateArticle
     try {
         const file = req.file;
 
-        if (!file) return res.status(400).json({ message: "No se ha subido ningún archivo." });
+        if (!file) return res.status(400).json({ message: t("NOT_FILE_UPLOAD", req.lang) });
 
         const filePath = file.path;
         const fileNoExt = file.filename.replace(/\.[^/.]+$/, "");
@@ -46,7 +47,9 @@ export async function createArticle(req: Request<unknown, unknown, CreateArticle
 
         unlinkSync(filePath);
 
-        const { title_es, title_en, subtitle_es, subtitle_en, description_es, description_en, date } = req.body;
+        const { title_es, title_en, subtitle_es, subtitle_en, description_es, description_en } = req.body;
+
+        const date = new Date().toISOString();
 
         const response = await insertArticle(date, fileNoExt + extWebp);
 
@@ -55,29 +58,26 @@ export async function createArticle(req: Request<unknown, unknown, CreateArticle
             insertArticleTranslations(response.insertId, "en", title_en, subtitle_en, description_en)
         ]);
 
-        return res.status(201).json({ message: "Artículo creado correctamente." });
+        return res.status(201).json({ message: t("articles:ARTICLE_CREATED", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al crear el artículo." });
+        return res.status(500).json({ message: t("articles:ARTICLE_ERROR_CREATED", req.lang) });
     }
 }
 
-export async function updateArticle(req: Request<{ id: string }, unknown, UpdateArticle>, res: Response<{ message: string }>) {
+export async function updateArticleTranslations(req: Request<{ id: string, lang: string }, unknown, UpdateArticle>, res: Response<{ message: string }>) {
     try {
-        const { id } = req.params;
-        const { title_es, title_en, subtitle_es, subtitle_en, description_es, description_en, date } = req.body;
+        const { id, lang } = req.params;
+        const { description, subtitle, title } = req.body;
 
 
-        await Promise.all([
-            modifyArticle(date, Number(id)),
-            modifyArticleTranslations(Number(id), "es", title_es, subtitle_es, description_es),
-            modifyArticleTranslations(Number(id), "en", title_en, subtitle_en, description_en)
-        ]);
+        await modifyArticleTranslations(Number(id), lang, title, subtitle, description);
 
-        return res.status(200).json({ message: "Artículo actualizado correctamente." });
+
+        return res.status(200).json({ message: t("articles:ARTICLE_UPDATED", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al actualizar el artículo." });
+        return res.status(500).json({ message: t("articles:ARTICLE_ERROR_UPDATED", req.lang) });
     }
 }
 
@@ -85,7 +85,7 @@ export async function updateArticleImage(req: Request<{ id: string }>, res: Resp
     try {
         const file = req.file;
 
-        if (!file) return res.status(400).json({ message: "No se ha subido ningún archivo." });
+        if (!file) return res.status(400).json({ message: t("NOT_FILE_UPLOAD", req.lang) });
 
         const { id } = req.params;
 
@@ -98,8 +98,7 @@ export async function updateArticleImage(req: Request<{ id: string }>, res: Resp
             .toFormat("webp")
             .toFile(fileWebp);
 
-        unlinkSync(filePath);
-
+        console.log(id);
         const [article] = await Promise.all([
             findArticleByID(Number(id)),
             modifyArticleImage(fileNoExt + extWebp, Number(id))
@@ -107,10 +106,10 @@ export async function updateArticleImage(req: Request<{ id: string }>, res: Resp
 
         unlinkSync(path.join("public/articles", article[0].main_image));
 
-        return res.status(200).json({ message: "Imagen del artículo actualizada correctamente." });
+        return res.status(200).json({ message: t("articles:ARTICLE_UPDATE_IMAGE_SUCCESS", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al actualizar la imagen del artículo." });
+        return res.status(500).json({ message: t("articles:ARTICLE_UPDATE_IMAGE_ERROR", req.lang) });
     }
 }
 
@@ -122,11 +121,11 @@ export async function updateArticleStatus(req: Request<{ id: string }, unknown, 
 
         const response = await modifyStatusArticle(Number(id), status);
 
-        if (response.affectedRows <= 0) return res.status(500).json({ message: "Error al actualizar el estado del artículo." });
+        if (response.affectedRows <= 0) return res.status(500).json({ message: t("articles:ARTICLE_UPDATE_STATUS_ERROR", req.lang) });
 
-        return res.status(200).json({ message: "Estado del artículo actualizado correctamente." });
+        return res.status(200).json({ message: t("articles:ARTICLE_UPDATE_STATUS_SUCCESS", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al actualizar el estado del artículo." });
+        return res.status(500).json({ message: t("articles:ARTICLE_UPDATE_STATUS_ERROR", req.lang) });
     }
 }
