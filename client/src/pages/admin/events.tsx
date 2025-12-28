@@ -31,7 +31,6 @@ import type { FieldValues, UseFormReset } from "react-hook-form";
 
 /* Hooks */
 import { useTranslation } from "react-i18next";
-import i18n from "@/config/i18n";
 import { useCallback, useEffect, useState } from "react";
 import { usePageLoader } from "@/hooks/usePageLoader";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -47,48 +46,52 @@ import "@/styles/scrollbar.css";
 /* Services */
 import { changeStatusEvent, createEvent, getAllEvents, getEventByID, updateEventByID, updateEventByLang, updateEventImage } from "@/services/eventsServices";
 
-/* env */
+/* Config */
 import { API_URL_IMAGES } from "@/config/config";
+import i18n from "@/config/i18n";
 
 /* utils */
 import formatDate from "@/utils/formatDate";
 
 export default function EventsAdmin() {
+    // Hooks
     const { t } = useTranslation("translation", { keyPrefix: "admin.events" });
     const { loading, startLoading, stopLoading } = usePageLoader();
     const isMobile = useIsMobile();
     const navigate = useNavigate();
-    const [formSubmit, setFormSubmit] = useState(false);
 
-    const search = useForm();
-
-    const [loadingLanguage, setLoadingLanguage] = useState<boolean>(false);
+    // States Dialogs
     const [dialogViewMore, setDialogViewMore] = useState(false);
     const [dialogUpdateVersion, setDialogUpdateVersion] = useState(false);
     const [dialogUpdate, setDialogUpdate] = useState(false);
     const [dialogUpdateImage, setDialogUpdateImage] = useState(false);
     const [dialogCreate, setDialogCreate] = useState(false);
 
+    // States for submit form
+    const [formSubmit, setFormSubmit] = useState(false);
+
+    // States for change language
+    const [loadingLanguage, setLoadingLanguage] = useState<boolean>(false);
+
+    // Forms
     const formUpdate = useForm<UpdateEvent>({ mode: "all" });
     const formUpdateVersion = useForm<{ title: string, description: string }>({ mode: "onChange" });
     const formImage = useForm<{ image: FileList }>({ mode: "onChange" });
     const formCreate = useForm<CreateEvent>({ mode: "all" });
+    const search = useForm();
 
-
-
+    // States for dataTable
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    );
-    const [columnVisibility, setColumnVisibility] =
-        useState<VisibilityState>({});
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
-
+    // States for data API
     const [data, setData] = useState<Events[]>([]);
     const [filterData, setFilterData] = useState<Events[]>([]);
     const [dataByID, setDataByID] = useState<Omit<Events, "delete_at">>();
 
-
+    // Columns
     const columns: ColumnDef<Events>[] = [
         {
             accessorKey: "title",
@@ -197,10 +200,6 @@ export default function EventsAdmin() {
         }
     ];
 
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 10
-    });
 
     const table = useReactTable({
         data,
@@ -221,6 +220,7 @@ export default function EventsAdmin() {
         }
     });
 
+    // Hook for on load page
     const onLoad = useCallback(async () => {
         startLoading();
         try {
@@ -244,6 +244,7 @@ export default function EventsAdmin() {
         }
     }, [navigate, startLoading, stopLoading, search]);
 
+    // Hook on get data by id in data table
     const onGetDataByID = async <T extends FieldValues>(id: number, setValue: Dispatch<SetStateAction<boolean>>, lang?: string, reset?: UseFormReset<T>, mapData?: (data: Omit<Events, "delete_at">) => T) => {
         try {
             let response;
@@ -266,7 +267,7 @@ export default function EventsAdmin() {
             console.log(error);
         }
     };
-
+    // Hooks forms
     const onSearch = (value: string) => {
         if (value) {
             const filter = data.filter((item) => item.title.toLowerCase().includes(value.toLowerCase()));
