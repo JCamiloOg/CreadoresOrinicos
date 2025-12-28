@@ -94,7 +94,7 @@
             },
             "dialogs": {
                 "viewMore": {
-                    "titleDialog": "información completa del articulo",
+                    "titleDialog": "Información completa del articulo",
                     "title": "Título del artículo",
                     "subtitle": "Subtítulo del artículo",
                     "date": "Fecha de publicación",
@@ -128,6 +128,113 @@
                     "subtitle_en": "Subtítulo en inglés",
                     "description_es": "Descripción en español",
                     "description_en": "Descripción en inglés",
+                    "image": "Imagen",
+                    "submit": "Crear"
+                }
+            }
+        },
+        "events": {
+            "header": {
+                "link": "Inicio",
+                "title": "Eventos"
+            },
+            "errors": {
+                "requiredTitle": "El título es requerido.",
+                "requiredDescription": "La Información del evento es requerida.",
+                "maxLengthTitle": "El título es muy largo.",
+                "minLengthTitle": "El título es muy corto.",
+                "maxLengthDescription": "La Información del evento es muy larga.",
+                "minLengthDescription": "La Información del evento es muy corta.",
+                "requiredDate": "La fecha es requerida.",
+                "requiredTime": "La hora es requerida.",
+                "requiredModality": "La modalidad es requerida.",
+                "requiredAddress": "La dirección es requerida si la modalidad es presencial",
+                "minLengthAddress": "La dirección es muy corta.",
+                "maxLengthAddress": "La dirección es muy larga.",
+                "minlengthInscriptionLink": "El enlace de inscripción es muy corto.",
+                "maxlengthInscriptionLink": "El enlace de inscripción es muy largo."
+            },
+            "title": "EVENTOS",
+            "table": {
+                "title": "Título",
+                "modality": "Modalidad",
+                "InPerson": "Presencial",
+                "virtual": "Virtual",
+                "date": "Fecha del evento",
+                "hour": "Hora del evento",
+                "status": "Estado del evento",
+                "status1": "Activado",
+                "status0": "Desactivado",
+                "actions": "Acciones",
+                "search": "Buscar por título",
+                "columns": "Columnas",
+                "buttonNext": "Siguiente",
+                "buttonPrev": "Anterior",
+                "page": "Página",
+                "of": "de",
+                "viewMore": "Ver más",
+                "edit": "Editar evento",
+                "editEn": "Editar versión en inglés",
+                "editEs": "Editar versión en español",
+                "editImage": "Actualizar imagen",
+                "changeStatus": "Cambiar estado",
+                "noData": "No hay resultados con tu búsqueda.",
+                "add": "Añadir Evento"
+            },
+            "dialogs": {
+                "viewMore": {
+                    "titleDialog": "Información completa del evento",
+                    "title": "Titulo del  evento",
+                    "date": "Fecha del evento",
+                    "hour": "Hora del evento",
+                    "description": "Descripción del artículo",
+                    "inscription_link": "Enlace de inscripción",
+                    "address": "Dirección del evento",
+                    "status": "Estado del evento",
+                    "noApply": "No aplica.",
+                    "image": "Imágen del evento"
+                },
+                "update": {
+                    "titleDialog": "Actualizar evento",
+                    "selectDate": "Selecciona la fecha del evento",
+                    "date": "Fecha del evento",
+                    "time": "Hora del evento",
+                    "modality": "Modalidad del evento",
+                    "modality1": "Presencial",
+                    "modality2": "Virtual",
+                    "address": "Dirección del evento",
+                    "inscription_link": "Enlace de inscripción",
+                    "submit": "Actualizar"
+                },
+                "updateVersion": {
+                    "titleDialog": "Actualizar versión",
+                    "title": "Título del evento",
+                    "description": "Descripción del evento",
+                    "submit": "Actualizar",
+                    "errors": {
+                        "noData": "No se ha podido identificar el evento."
+                    }
+                },
+                "updateImage": {
+                    "titleDialog": "Actualizar imagen",
+                    "submit": "Actualizar",
+                    "image": "Selecciona la nueva imágen",
+                    "currentImage": "Imagen actual."
+                },
+                "create": {
+                    "titleDialog": "Crear Evento",
+                    "title_es": "Título en español",
+                    "title_en": "Título en inglés",
+                    "description_es": "Información del evento en español",
+                    "description_en": "Información del evento en inglés",
+                    "date": "Fecha del evento",
+                    "selectDate": "Selecciona la fecha del evento",
+                    "time": "Hora del evento",
+                    "modality": "Modalidad del evento",
+                    "modality1": "Presencial",
+                    "modality2": "Virtual",
+                    "address": "Dirección del evento",
+                    "inscription_link": "Enlace de inscripción",
                     "image": "Imagen",
                     "submit": "Crear"
                 }

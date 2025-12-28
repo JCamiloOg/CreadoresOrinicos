@@ -130,6 +130,117 @@
                     "submit": "Create"
                 }
             }
+        },
+        "events": {
+            "header": {
+                "link": "Home",
+                "title": "Events"
+            },
+            "errors": {
+                "requiredTitle": "Title is required.",
+                "requiredDescription": "Event information is required.",
+                "maxLengthTitle": "Title is too long.",
+                "minLengthTitle": "Title is too short.",
+                "maxLengthDescription": "Event information is too long.",
+                "minLengthDescription": "Event information is too short.",
+                "requiredDate": "Date is required.",
+                "requiredTime": "Time is required.",
+                "requiredModality": "Modality is required.",
+                "requiredAddress": "Address is required if the modality is in person",
+                "minLengthAddress": "Address is too short.",
+                "maxLengthAddress": "Address is too long.",
+                "minlengthInscriptionLink": "Inscription link is too short.",
+                "maxlengthInscriptionLink": "Inscription link is too long."
+            },
+            "title": "EVENTS",
+            "table": {
+                "title": "Title",
+                "modality": "Modality",
+                "InPerson": "In person",
+                "virtual": "Virtual",
+                "date": "Event date",
+                "hour": "Event hour",
+                "status": "Event status",
+                "status1": "Activated",
+                "status0": "Deactivated",
+                "actions": "Actions",
+                "search": "Search by title",
+                "columns": "Columns",
+                "buttonNext": "Next",
+                "buttonPrev": "Previous",
+                "page": "Page",
+                "of": "of",
+                "viewMore": "View more",
+                "edit": "Edit event",
+                "editEn": "Edit english version",
+                "editEs": "Edit spanish version",
+                "editImage": "Update image",
+                "changeStatus": "Change status",
+                "noData": "No results with your search.",
+                "add": "Add event"
+            },
+            "dialogs": {
+                "viewMore": {
+                    "titleDialog": "Complete event information",
+                    "title": "Event title",
+                    "subtitle": "Event subtitle",
+                    "date": "Event date",
+                    "hour": "Event hour",
+                    "address": "Event address",
+                    "inscription_link": "Inscription link",
+                    "description": "Event description",
+                    "status": "Event status",
+                    "modality": "Event modality",
+                    "location": "Event location",
+                    "link": "Event link",
+                    "image": "Event image",
+                    "noApply": "N/A"
+                },
+                "update": {
+                    "titleDialog": "Update event",
+                    "selectDate": "Select the event date",
+                    "date": "Event date",
+                    "time": "Event hour",
+                    "modality": "Event modality",
+                    "modality1": "In person",
+                    "modality2": "Virtual",
+                    "address": "Event address",
+                    "inscription_link": "Inscription link",
+                    "submit": "Update"
+                },
+                "updateVersion": {
+                    "titleDialog": "Update version",
+                    "title": "Event title",
+                    "description": "Event description",
+                    "submit": "Update",
+                    "errors": {
+                        "noData": "The event could not be identified."
+                    }
+                },
+                "updateImage": {
+                    "titleDialog": "Update image",
+                    "submit": "Update",
+                    "image": "Select the new image",
+                    "currentImage": "Current image."
+                },
+                "create": {
+                    "titleDialog": "Create Event",
+                    "title_es": "Title in spanish",
+                    "title_en": "Title in english",
+                    "description_es": "Event information in spanish",
+                    "description_en": "Event information in english",
+                    "date": "Event date",
+                    "selectDate": "Select the event date",
+                    "time": "Event hour",
+                    "modality": "Event modality",
+                    "modality1": "In person",
+                    "modality2": "Virtual",
+                    "address": "Event address",
+                    "inscription_link": "Inscription link",
+                    "image": "Image",
+                    "submit": "Create"
+                }
+            }
         }
     }
 }
