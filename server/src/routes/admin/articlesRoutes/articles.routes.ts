@@ -7,7 +7,7 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/", getArticles);
-router.get("/:id/", getArticles);
+router.get("/:id", getArticles);
 router.post("/create", upload.single("image"), validateCreateArticle, validationErrors, createArticle);
 router.put("/update/status/:id", validateUpdateStatus, validationErrors, updateArticleStatus);
 router.post("/update/image/:id", upload.single("image"), updateArticleImage);
