@@ -7,10 +7,10 @@ i18n
         fallbackLng: "en",
         lng: "es",
         backend: {
-            loadPath: `src/locales/{{lng}}/{{ns}}.json`,
+            loadPath: `locales/{{lng}}/{{ns}}.json`,
         },
         preload: ["en", "es"],
-        ns: ["auth", "articles", "common"],
+        ns: ["auth", "articles", "common", "events"],
         defaultNS: 'common',
     });
 
