@@ -1,27 +1,30 @@
 import { findAllEvents, findEventsByID, insertEvent, insertEventTranslations, modifyEvent, modifyEventImage, modifyEventTranslations, modifyStatusEvent } from "@/models/events.model";
-import { CreateEvent, Events, EventsByID, UpdateEvent } from "@/types/events";
+import { CreateEvent, Events, EventsByID, UpdateEvent, updateEventTranslations } from "@/types/events";
+import { t } from "@/utils/t";
 import { Request, Response } from "express";
 import { unlinkSync } from "fs";
 import path from "path";
 import sharp from "sharp";
 
-export async function getEvents(req: Request<{ id?: number }>, res: Response<{ message: string, events?: Events[] | EventsByID[] }>) {
+export async function getEvents(req: Request<{ id?: number }, unknown, unknown, { lang?: string }>, res: Response<{ message: string, events?: Events[] | EventsByID[] }>) {
     try {
         const { id } = req.params;
+        const { lang } = req.query;
+
         if (id) {
-            const event = await findEventsByID(id);
+            const event = await findEventsByID(id, lang || req.lang);
 
-            if (!event) return res.status(404).json({ message: "Evento no encontrado." });
+            if (!event) return res.status(404).json({ message: t("events:EVENT_NOT_FOUND", req.lang) });
 
-            return res.status(200).json({ message: "Evento obtenido correctamente.", events: event });
+            return res.status(200).json({ message: t("events:GET_EVENT_SUCCESS", req.lang), events: event });
         }
 
-        const events = await findAllEvents();
+        const events = await findAllEvents(req.lang);
 
-        return res.status(200).json({ message: "Eventos obtenidos correctamente.", events });
+        return res.status(200).json({ message: t("events:GET_EVENTS_SUCCESS", req.lang), events });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al obtener los eventos." });
+        return res.status(500).json({ message: t("events:GET_EVENTS_ERROR", req.lang) });
     }
 }
 
@@ -29,7 +32,7 @@ export async function createEvent(req: Request<unknown, unknown, CreateEvent>, r
     try {
         const file = req.file;
 
-        if (!file) return res.status(400).json({ message: "No se ha subido ningún archivo." });
+        if (!file) return res.status(400).json({ message: t("events:NOT_FILE_UPLOAD", req.lang) });
 
         const filePath = file.path;
         const fileNoExt = file.filename.replace(/\.[^/.]+$/, "");
@@ -51,36 +54,45 @@ export async function createEvent(req: Request<unknown, unknown, CreateEvent>, r
             insertEventTranslations(response.insertId, "en", title_en, description_en)
         ]);
 
-        return res.status(201).json({ message: "Evento creado correctamente." });
+        return res.status(201).json({ message: t("events:CREATE_EVENT_SUCCESS", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al crear el evento." });
+        return res.status(500).json({ message: t("events:CREATE_EVENT_ERROR", req.lang) });
     }
 }
 
 export async function updateEvent(req: Request<{ id: string }, unknown, UpdateEvent>, res: Response<{ message: string }>) {
     try {
         const { id } = req.params;
-        const { address, date, description_en, description_es, hour, inscription_link, modality, title_en, title_es } = req.body;
+        const { address, date, hour, inscription_link, modality } = req.body;
 
+        await modifyEvent(date, hour, modality, address, inscription_link, Number(id));
 
-        await Promise.all([
-            modifyEvent(date, hour, modality, address, inscription_link, Number(id)),
-            modifyEventTranslations("es", title_es, description_es, Number(id)),
-            modifyEventTranslations("en", title_en, description_en, Number(id))
-        ]);
-
-        return res.status(200).json({ message: "Evento actualizado correctamente." });
+        return res.status(200).json({ message: t("events:UPDATE_EVENT_SUCCESS", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al actualizar el evento." });
+        return res.status(500).json({ message: t("events:UPDATE_EVENT_ERROR", req.lang) });
+    }
+}
+
+export async function updateEventTranslations(req: Request<{ id: string, lang: string }, unknown, updateEventTranslations>, res: Response<{ message: string }>) {
+    try {
+        const { id, lang } = req.params;
+        const { title, description } = req.body;
+
+        await modifyEventTranslations(lang, title, description, Number(id));
+
+        return res.status(200).json({ message: t("events:UPDATE_EVENT_SUCCESS", req.lang) });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: t("events:UPDATE_EVENT_ERROR", req.lang) });
     }
 }
 
 export async function updateEventImage(req: Request<{ id: string }>, res: Response<{ message: string }>) {
     try {
         const file = req.file;
-        if (!file) return res.status(400).json({ message: "No se ha subido ningún archivo." });
+        if (!file) return res.status(400).json({ message: t("events:NOT_FILE_UPLOAD", req.lang) });
 
         const { id } = req.params;
 
@@ -103,10 +115,10 @@ export async function updateEventImage(req: Request<{ id: string }>, res: Respon
 
         unlinkSync(path.join("public/events", event[0].image));
 
-        return res.status(200).json({ message: "Imagen del evento actualizada correctamente." });
+        return res.status(200).json({ message: t("events:UPDATE_EVENT_IMAGE_SUCCESS", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al actualizar la imagen del evento." });
+        return res.status(500).json({ message: t("events:UPDATE_EVENT_IMAGE_ERROR", req.lang) });
     }
 }
 
@@ -116,12 +128,12 @@ export async function updateEventStatus(req: Request<{ id: string }, unknown, { 
         const { status } = req.body;
 
         const response = await modifyStatusEvent(status, Number(id));
-        if (response.affectedRows <= 0) return res.status(500).json({ message: "Error al actualizar el estado del evento." });
+        if (response.affectedRows <= 0) return res.status(500).json({ message: t("events:UPDATE_EVENT_STATUS_ERROR", req.lang) });
 
-        return res.status(200).json({ message: "Estado del evento actualizado correctamente." });
+        return res.status(200).json({ message: t("events:UPDATE_EVENT_STATUS_SUCCESS", req.lang) });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ message: "Error al actualizar el estado del evento." });
+        return res.status(500).json({ message: t("events:UPDATE_EVENT_STATUS_ERROR", req.lang) });
     }
 }
 

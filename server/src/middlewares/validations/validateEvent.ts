@@ -28,7 +28,7 @@ export const validateCreateEvent = [
         .trim()
         .notEmpty()
         .withMessage("La hora es obligatoria")
-        .isTime({ mode: "withSeconds", hourFormat: "hour24" })
+        .matches(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/)
         .withMessage("La hora debe tener el formato HH:mm:ss"),
     body("modality")
         .trim()
@@ -50,12 +50,18 @@ export const validateCreateEvent = [
         .withMessage("El enlace de inscripción debe tener entre 3 y 500 caracteres")
 ];
 
-export const validateUpdateEvent = [
+export const validateUpdateEventTranslations = [
     param("id")
         .trim()
         .notEmpty()
         .withMessage("ID no idenficado."),
-    body(["title_es", "title_en"])
+    param("lang")
+        .trim()
+        .notEmpty()
+        .withMessage("El idioma es obligatorio")
+        .isString()
+        .withMessage("El idioma debe ser una cadena de texto"),
+    body("title")
         .trim()
         .notEmpty()
         .withMessage("El título es obligatorio")
@@ -63,14 +69,21 @@ export const validateUpdateEvent = [
         .withMessage("El título debe ser una cadena de texto")
         .isLength({ min: 3, max: 30 })
         .withMessage("El título debe tener entre 3 y 30 caracteres"),
-    body(["description_es", "description_en"])
+    body("description")
         .trim()
         .notEmpty()
         .withMessage("La descripción es obligatoria")
         .isString()
         .withMessage("La descripción debe ser una cadena de texto")
         .isLength({ min: 10, max: 1000 })
-        .withMessage("La descripción debe tener entre 10 y 1000 caracteres"),
+        .withMessage("La descripción debe tener entre 10 y 1000 caracteres")
+];
+
+export const validateUpdateEvent = [
+    param("id")
+        .trim()
+        .notEmpty()
+        .withMessage("ID no idenficado."),
     body("date")
         .trim()
         .notEmpty()
@@ -81,7 +94,7 @@ export const validateUpdateEvent = [
         .trim()
         .notEmpty()
         .withMessage("La hora es obligatoria")
-        .isTime({ hourFormat: "hour24" })
+        .matches(/^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/)
         .withMessage("La hora debe tener el formato HH:mm:ss"),
     body("modality")
         .trim()
@@ -93,7 +106,7 @@ export const validateUpdateEvent = [
         .optional({ checkFalsy: true })
         .isString()
         .withMessage("La dirección debe ser una cadena de texto")
-        .isLength({ min: 3, max: 100 })
+        .isLength({ min: 3, max: 40 })
         .withMessage("La dirección debe tener entre 3 y 100 caracteres"),
     body("inscription_link")
         .optional({ checkFalsy: true })

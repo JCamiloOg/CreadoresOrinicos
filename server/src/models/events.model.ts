@@ -2,9 +2,9 @@ import conn from "@/config/db";
 import { Events, EventsByID } from "@/types/events";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
-export async function findAllEvents() {
+export async function findAllEvents(lang: string) {
     try {
-        const [row] = await conn.query<Events[] & RowDataPacket[]>("SELECT * FROM events e INNER JOIN events_translations et ON e.id = et.event_id");
+        const [row] = await conn.query<Events[] & RowDataPacket[]>("SELECT e.id, e.date, e.hour, e.modality, e.address, e.inscription_link, e.image, e.status, e.delete_at, et.lang, et.title, et.description FROM events e INNER JOIN events_translations et ON e.id = et.event_id WHERE et.lang = ?", [lang]);
         return row;
     } catch (error) {
         console.error(error);
@@ -13,9 +13,9 @@ export async function findAllEvents() {
 }
 
 
-export async function findEventsByID(id: number) {
+export async function findEventsByID(id: number, lang?: string) {
     try {
-        const [row] = await conn.query<EventsByID[] & RowDataPacket[]>("SELECT e.id, e.date, e.hour, e.modality, e.address, e.inscription_link, e.image, e.status, et.lang, et.title, et.description FROM events e INNER JOIN events_translations et ON e.id = et.event_id WHERE e.id = ?", [id]);
+        const [row] = await conn.query<EventsByID[] & RowDataPacket[]>("SELECT e.id, e.date, e.hour, e.modality, e.address, e.inscription_link, e.image, e.status, et.lang, et.title, et.description FROM events e INNER JOIN events_translations et ON e.id = et.event_id WHERE e.id = ? AND et.lang = ?", [id, lang || "es"]);
         return row;
     } catch (error) {
         console.error(error);
@@ -63,7 +63,7 @@ export async function modifyEventImage(image: string, id: number) {
     }
 }
 
-export async function modifyEventTranslations(lang: "es" | "en", title: string, description: string, id: number) {
+export async function modifyEventTranslations(lang: string, title: string, description: string, id: number) {
     try {
         const [result] = await conn.query<ResultSetHeader>("UPDATE events_translations SET title = ?, description = ? WHERE event_id = ? AND lang = ?", [title, description, id, lang]);
         return result;

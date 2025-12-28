@@ -23,10 +23,7 @@ export type CreateEvent = Omit<Events, "id" | "lang" | "delete_at" | "status" | 
     description_en: string
 }
 
-export type UpdateEvent = Omit<Events, "id" | "lang" | "delete_at" | "status" | "title" | "description" | "image"> & {
-    title_es: string,
-    title_en: string,
-    description_es: string,
-    description_en: string
-}
+export type UpdateEvent = Omit<Events, "id" | "lang" | "delete_at" | "status" | "title" | "description" | "image">
+
+export type updateEventTranslations = Pick<Events, "title" | "description">
 
