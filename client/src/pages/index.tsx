@@ -12,18 +12,28 @@ export default function Index() {
     const [loadingLanguaje, setLoadingLanguaje] = useState(false);
 
     useEffect(() => {
-        i18n.on("languageChanging", () => setLoadingLanguaje(true));
-        i18n.on("languageChanged", () => {
-            setTimeout(() => setLoadingLanguaje(false), 500);
+        i18n.on("languageChanging", () => {
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+            setLoadingLanguaje(true);
         });
-
+        i18n.on("languageChanged", () => {
+            const timer = setTimeout(() => {
+                setLoadingLanguaje(false);
+            }, 500);
+            return () => {
+                clearTimeout(timer);
+            };
+        });
     }, []);
 
     useEffect(() => {
         document.title = "Creadores Oniricos";
         startLoading();
 
-        setTimeout(() => stopLoading(), 1000);
+        const timer = setTimeout(() => stopLoading(), 1000);
+        return () => {
+            clearTimeout(timer);
+        };
     }, [startLoading, stopLoading]);
 
     return (
