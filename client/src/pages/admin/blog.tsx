@@ -1,96 +1,87 @@
+/* Components  */
 import { AppSidebar } from "@/components/admin/sidebar/appSidebar";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { changeStatusArticle, createArticle, getAllArticles, getArticleByID, updateArticleByLang, updateArticleImage } from "@/services/blogServices";
-import { isAxiosError } from "axios";
-import { useCallback, useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router";
-import {
-    flexRender,
-    getCoreRowModel,
-    getFilteredRowModel,
-    getPaginationRowModel,
-    getSortedRowModel,
-    useReactTable,
-    type ColumnDef,
-    type ColumnFiltersState,
-    type SortingState,
-    type VisibilityState,
-} from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
-
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import type { Article, CreateArticle } from "@/types/blog";
-import { usePageLoader } from "@/hooks/usePageLoader";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Loader from "@/components/loader/loader";
-import onChangeLanguage from "@/hooks/useChangeLanguage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faImage } from "@fortawesome/free-regular-svg-icons";
-import { faFilePen, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { toast } from "sonner";
+import { faChevronDown, faEllipsis, faFilePen, faSearch, faUpDown } from "@fortawesome/free-solid-svg-icons";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import i18n from "@/config/i18n";
-import { API_URL_IMAGES } from "@/config/config";
 import InputGroupPer from "@/components/admin/inputs/inputGroup";
 import TextAreaAuto from "@/components/admin/inputs/textAreaAuto";
-import { useForm } from "react-hook-form";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+
+/* types */
+import type { ColumnDef, ColumnFiltersState, SortingState, VisibilityState } from "@tanstack/react-table";
+import type { Dispatch, SetStateAction } from "react";
+import type { Article, CreateArticle } from "@/types/blog";
+
+/* Hooks */
+import { isAxiosError } from "axios";
+import { useTranslation } from "react-i18next";
+import { Link, useNavigate } from "react-router";
+import { useCallback, useEffect, useState, } from "react";
+import { usePageLoader } from "@/hooks/usePageLoader";
+import onChangeLanguage from "@/hooks/useChangeLanguage";
+import { toast } from "sonner";
+import { useForm } from "react-hook-form";
 import { useIsMobile } from "@/hooks/use-mobile";
 
+/* Services */
+import { changeStatusArticle, createArticle, getAllArticles, getArticleByID, updateArticleByLang, updateArticleImage } from "@/services/blogServices";
+
+/* Config */
+import i18n from "@/config/i18n";
+import { API_URL_IMAGES } from "@/config/config";
+
+/* CSS */
+import "@/styles/scrollbar.css";
 
 export default function BlogAdmin() {
-
+    // Hooks
     const { t } = useTranslation("translation", { keyPrefix: "admin.blog" });
     const navigate = useNavigate();
     const { loading, startLoading, stopLoading } = usePageLoader();
-    const [loadingLanguage, setLoadingLanguage] = useState(false);
+    const isMobile = useIsMobile();
+
+    // States Dialogs
     const [dialogViewMore, setDialogViewMore] = useState(false);
     const [dialogUpdateVersion, setDialogUpdateVersion] = useState(false);
     const [dialogUpdateImage, setDialogUpdateImage] = useState(false);
     const [dialogCreate, setDialogCreate] = useState(false);
 
+    // State change language
+    const [loadingLanguage, setLoadingLanguage] = useState(false);
+
+    // Forms
     const formUpdate = useForm<{ title: string, subtitle: string, description: string }>({ mode: "onChange" });
     const formImage = useForm<{ image: FileList }>({ mode: "onChange" });
     const formCreate = useForm<CreateArticle>({ mode: "all" });
     const search = useForm<{ search: string }>();
-    const [formUpdateSubmit, setFormUpdateSubmit] = useState(false);
-    const [formImageSubmit, setFormImageSubmit] = useState(false);
-    const [formCreateSubmit, setFormCreateSubmit] = useState(false);
-    const isMobile = useIsMobile();
 
+    // State for submit form
+    const [formSubmit, setFormSubmit] = useState(false);
 
-
-
+    // States for data table
     const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>(
-        []
-    );
-    const [columnVisibility, setColumnVisibility] =
-        useState<VisibilityState>({});
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 3 });
+
+
+    // States for info API
     const [data, setData] = useState<Article[]>([]);
     const [dataByID, setDataByID] = useState<Omit<Article, "delete_at">>();
     const [filterData, setFilterData] = useState<Article[]>([]);
+
+    // Columns for table
     const columns: ColumnDef<Article>[] = [
         {
             accessorKey: "title",
@@ -101,7 +92,7 @@ export default function BlogAdmin() {
                         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
                     >
                         {t("table.title")}
-                        <ArrowUpDown />
+                        <FontAwesomeIcon icon={faUpDown} />
                     </Button>
                 );
             },
@@ -158,7 +149,7 @@ export default function BlogAdmin() {
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="h-8 w-8 p-0">
                                 <span className="sr-only">Open menu</span>
-                                <MoreHorizontal />
+                                <FontAwesomeIcon icon={faEllipsis} />
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="dark" align="center">
@@ -196,6 +187,8 @@ export default function BlogAdmin() {
             },
         },
     ];
+
+    //  data table config
     const table = useReactTable({
         data,
         columns,
@@ -206,20 +199,16 @@ export default function BlogAdmin() {
         getSortedRowModel: getSortedRowModel(),
         getFilteredRowModel: getFilteredRowModel(),
         onColumnVisibilityChange: setColumnVisibility,
-        // onRowSelectionChange: setRowSelection,
+        onPaginationChange: setPagination,
         state: {
             sorting,
             columnFilters,
             columnVisibility,
-            pagination: {
-                pageIndex: 0,
-                pageSize: 10
-            }
+            pagination
         },
     });
 
-
-
+    // Hook on load page
     const onLoad = useCallback(async () => {
         startLoading();
         try {
@@ -242,10 +231,52 @@ export default function BlogAdmin() {
         } finally {
             stopLoading();
         }
-    }, [navigate, stopLoading, startLoading]);
+    }, [navigate, stopLoading, startLoading, search]);
 
+    // Hook change status
+    const onChangeStatusArticle = async (id: number, status: 0 | 1) => {
+        try {
+            const response = await changeStatusArticle(id, status);
+
+            if (response.status === 200) {
+                toast.success(response.data.message);
+                onLoad();
+            }
+        } catch (error) {
+            if (isAxiosError(error)) {
+                toast.error(error.response?.data.message || error.message);
+            } else {
+                toast.error("Something went wrong.");
+            }
+        }
+    };
+    // Hook on get data by ID in data table
+    const onGetDataByid = async (id: number, setValue: Dispatch<SetStateAction<boolean>>, lang?: string) => {
+        try {
+            let response;
+
+            if (lang) response = await getArticleByID(id, lang);
+            else response = await getArticleByID(id);
+
+
+            if (response.status === 200) {
+                setDataByID(response.data.articles[0]);
+                setValue(true);
+            }
+
+        } catch (error) {
+            if (isAxiosError(error)) {
+                toast.error(error.response?.data.message || error.message);
+            } else {
+                toast.error("Something went wrong.");
+            }
+
+        }
+    };
+
+    /* Hooks on submits */
     const onSubmitCreate = async (data: CreateArticle) => {
-        setFormCreateSubmit(true);
+        setFormSubmit(true);
         try {
             const formData = new FormData();
             formData.append("title_es", data.title_es);
@@ -272,61 +303,21 @@ export default function BlogAdmin() {
         } finally {
             formCreate.reset();
             onLoad();
-            setFormCreateSubmit(false);
+            setFormSubmit(false);
             setDialogCreate(false);
 
         }
     };
 
-    const onChangeStatusArticle = async (id: number, status: 0 | 1) => {
-        try {
-            const response = await changeStatusArticle(id, status);
-
-            if (response.status === 200) {
-                toast.success(response.data.message);
-                onLoad();
-            }
-        } catch (error) {
-            if (isAxiosError(error)) {
-                toast.error(error.response?.data.message || error.message);
-            } else {
-                toast.error("Something went wrong.");
-            }
-        }
-    };
-
-    const onGetDataByid = async (id: number, setValue: Dispatch<SetStateAction<boolean>>, lang?: string) => {
-        try {
-            let response;
-
-            if (lang) response = await getArticleByID(id, lang);
-            else response = await getArticleByID(id);
-
-
-            if (response.status === 200) {
-                setDataByID(response.data.articles[0]);
-                setValue(true);
-            }
-
-        } catch (error) {
-            if (isAxiosError(error)) {
-                toast.error(error.response?.data.message || error.message);
-            } else {
-                toast.error("Something went wrong.");
-            }
-
-        }
-    };
-
-
     const onSubmitUpdate = async (data: { title: string, subtitle: string, description: string }) => {
-        setFormUpdateSubmit(true);
+        setFormSubmit(true);
         try {
             if (dataByID) {
                 const response = await updateArticleByLang(dataByID.id, dataByID.lang, data);
 
                 if (response.status === 200) {
                     toast.success(response.data.message);
+                    onLoad();
                     setDialogUpdateVersion(false);
                 }
             } else {
@@ -340,8 +331,7 @@ export default function BlogAdmin() {
             }
         } finally {
             formUpdate.reset();
-            onLoad();
-            setFormUpdateSubmit(false);
+            setFormSubmit(false);
             setDataByID(undefined);
         }
     };
@@ -356,7 +346,7 @@ export default function BlogAdmin() {
     };
 
     const onSubmitImage = async (data: { image: FileList }) => {
-        setFormImageSubmit(true);
+        setFormSubmit(true);
         try {
             if (dataByID) {
                 const formData = new FormData();
@@ -380,7 +370,7 @@ export default function BlogAdmin() {
         } finally {
             formImage.reset();
             setDialogUpdateImage(false);
-            setFormImageSubmit(false);
+            setFormSubmit(false);
             setDataByID(undefined);
         }
     };
@@ -455,7 +445,7 @@ export default function BlogAdmin() {
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
                                                 <Button variant="outline" className="text-white ml-auto">
-                                                    {t("table.columns")} <ChevronDown />
+                                                    {t("table.columns")} <FontAwesomeIcon icon={faChevronDown} />
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent className="dark" align="end">
@@ -522,7 +512,7 @@ export default function BlogAdmin() {
                                                             colSpan={columns.length}
                                                             className="h-24 text-center"
                                                         >
-                                                            No results.
+                                                            {t("table.noData")}
                                                         </TableCell>
                                                     </TableRow>
                                                 )}
@@ -533,7 +523,6 @@ export default function BlogAdmin() {
                                         <div className="text-white">
                                             {t("table.page")} {table.getState().pagination.pageIndex + 1}  {t("table.of")}{" "}
                                             {table.getPageCount()}
-
                                         </div>
                                         <div className="space-x-2">
                                             <Button
@@ -725,7 +714,7 @@ export default function BlogAdmin() {
                             </div>
                         </div>
                         <DialogFooter className="mt-10">
-                            <Button className="cursor-pointer" disabled={!formCreate.formState.isValid || formCreateSubmit} type="submit">
+                            <Button className="cursor-pointer" disabled={!formCreate.formState.isValid || formSubmit} type="submit">
                                 {t("dialogs.create.submit")}
                             </Button>
                         </DialogFooter>
@@ -772,7 +761,7 @@ export default function BlogAdmin() {
                         </div>
                         <div className="col-span-12 text-center ">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.description")}</h3>
-                            <p className="max-h-40 overflow-auto">
+                            <p className="max-h-40 overflow-auto scrollMin">
                                 {dataByID?.text}
                             </p>
                         </div>
@@ -850,7 +839,7 @@ export default function BlogAdmin() {
                             </div>
                         </div>
                         <DialogFooter className="mt-10">
-                            <Button className="cursor-pointer" disabled={!formUpdate.formState.isValid || formUpdateSubmit} type="submit">
+                            <Button className="cursor-pointer" disabled={!formUpdate.formState.isValid || formSubmit} type="submit">
                                 {t("dialogs.updateVersion.submit")}
                             </Button>
                         </DialogFooter>
@@ -888,7 +877,7 @@ export default function BlogAdmin() {
                             </div>
                         </div>
                         <DialogFooter className="mt-10">
-                            <Button className="cursor-pointer" disabled={!formImage.formState.isValid || formImageSubmit} type="submit">
+                            <Button className="cursor-pointer" disabled={!formImage.formState.isValid || formSubmit} type="submit">
                                 {t("dialogs.updateImage.submit")}
                             </Button>
                         </DialogFooter>
