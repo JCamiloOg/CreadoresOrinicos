@@ -3,6 +3,7 @@ import Index from "../pages/index";
 import SocialNetworks from "@/pages/socialNetworks";
 import Login from "@/pages/admin/login";
 import BlogAdmin from "@/pages/admin/blog";
+import EventsAdmin from "@/pages/admin/events";
 
 export default function AppRoutes() {
     return (
@@ -14,6 +15,7 @@ export default function AppRoutes() {
                 {/* Admin */}
                 <Route path="/admin/login" element={<Login />} />
                 <Route path="/admin/blog" element={<BlogAdmin />} />
+                <Route path="/admin/events" element={<EventsAdmin />} />
             </Routes>
         </>
     );
