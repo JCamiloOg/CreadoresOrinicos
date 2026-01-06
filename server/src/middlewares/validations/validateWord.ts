@@ -24,7 +24,7 @@ export const validateUpdateWord = [
         .trim()
         .notEmpty()
         .withMessage("ID no idenficado."),
-    body(["word_es", "word_en"])
+    body("word")
         .trim()
         .notEmpty()
         .withMessage("La palabra es obligatoria")
@@ -32,7 +32,7 @@ export const validateUpdateWord = [
         .withMessage("La palabra debe ser una cadena de texto")
         .isLength({ min: 3, max: 30 })
         .withMessage("La palabra debe tener entre 3 y 30 caracteres"),
-    body(["description_es", "description_en"])
+    body("description")
         .trim()
         .notEmpty()
         .withMessage("La descripción es obligatoria")

@@ -2,9 +2,9 @@ import conn from "@/config/db";
 import { Glossary, GlossaryByID } from "@/types/glossary";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
-export async function findAllWords() {
+export async function findAllWords(lang: string) {
     try {
-        const [row] = await conn.query<Glossary[] & RowDataPacket[]>("SELECT * FROM glossary g INNER JOIN glossary_translations gt ON gt.word_id = g.id");
+        const [row] = await conn.query<Glossary[] & RowDataPacket[]>("SELECT g.id, g.status, g.delete_at, gt.lang, gt.word, gt.description FROM glossary g INNER JOIN glossary_translations gt ON gt.word_id = g.id WHERE gt.lang = ?", [lang]);
         return row;
     } catch (error) {
         console.error(error);
@@ -12,9 +12,9 @@ export async function findAllWords() {
     }
 }
 
-export async function findWordByID(id: number) {
+export async function findWordByID(id: number, lang: string) {
     try {
-        const [row] = await conn.query<GlossaryByID[] & RowDataPacket[]>("SELECT g.id, g.status, gt.word, gt.description FROM glossary g INNER JOIN glossary_translations gt ON gt.word_id = g.id WHERE g.id = ? ", [id]);
+        const [row] = await conn.query<GlossaryByID[] & RowDataPacket[]>("SELECT g.id, g.status, gt.word, gt.description, gt.lang FROM glossary g INNER JOIN glossary_translations gt ON gt.word_id = g.id WHERE g.id = ? AND gt.lang = ?", [id, lang]);
         return row;
     } catch (error) {
         console.error(error);
@@ -43,7 +43,7 @@ export async function inserWordTranslations(id: number, word: string, descriptio
     }
 }
 
-export async function modifyWord(id: number, word: string, description: string, lang: "es" | "en") {
+export async function modifyWordTranslations(id: number, word: string, description: string, lang: string) {
     try {
         const [result] = await conn.query<ResultSetHeader>("UPDATE glossary_translations SET word = ?, description = ? WHERE word_id = ? AND lang = ?", [word, description, id, lang]);
         return result;
