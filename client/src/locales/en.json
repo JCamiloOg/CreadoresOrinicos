@@ -241,6 +241,59 @@
                     "submit": "Create"
                 }
             }
+        },
+        "glossary": {
+            "header": {
+                "link": "Home",
+                "title": "Glossary"
+            },
+            "errors": {
+                "requiredWord": "Word is required.",
+                "requiredDefinition": "Definition is required.",
+                "maxLengthWord": "Word is too long.",
+                "minLengthWord": "Word is too short.",
+                "maxLengthDefinition": "Definition is too long.",
+                "minLengthDefinition": "Definition is too short."
+            },
+            "title": "WORDS",
+            "table": {
+                "word": "Word",
+                "definition": "Word definition",
+                "status": "Word status",
+                "status0": "Not visible",
+                "status1": "Visible",
+                "actions": "Actions",
+                "search": "Search by word",
+                "columns": "Columns",
+                "buttonNext": "Next",
+                "buttonPrev": "Previous",
+                "page": "Page",
+                "of": "of",
+                "add": "Add word",
+                "editEs": "Edit word in spanish",
+                "editEn": "Edit word in english",
+                "changeStatus": "Change status",
+                "noData": "No results with your search."
+            },
+            "dialogs": {
+                "create": {
+                    "titleDialog": "Create word",
+                    "word_es": "Word in spanish",
+                    "word_en": "Word in english",
+                    "definition_es": "Definition in spanish",
+                    "definition_en": "Definition in english",
+                    "submit": "Create"
+                },
+                "update": {
+                    "titleDialog": "Update word",
+                    "word": "Word",
+                    "definition": "Definition",
+                    "submit": "Update",
+                    "errors": {
+                        "noData": "The word could not be identified."
+                    }
+                }
+            }
         }
     }
 }

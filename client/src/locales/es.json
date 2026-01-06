@@ -239,6 +239,59 @@
                     "submit": "Crear"
                 }
             }
+        },
+        "glossary": {
+            "header": {
+                "link": "Inicio",
+                "title": "Glosario"
+            },
+            "errors": {
+                "requiredWord": "La palabra es requerida.",
+                "requiredDefinition": "La definición es requerida.",
+                "maxLengthWord": "La palabra es muy larga.",
+                "minLengthWord": "La palabra es muy corta.",
+                "maxLengthDefinition": "La definición es muy larga.",
+                "minLengthDefinition": "La definición es muy corta."
+            },
+            "title": "PALABRAS",
+            "table": {
+                "word": "Palabra",
+                "definition": "Definición de la palabra",
+                "status": "Estado de la palabra",
+                "status0": "No visible",
+                "status1": "Visible",
+                "actions": "Acciones",
+                "search": "Buscar por palabra",
+                "columns": "Columnas",
+                "buttonNext": "Siguiente",
+                "buttonPrev": "Anterior",
+                "page": "Página",
+                "of": "de",
+                "add": "Añadir palabra",
+                "editEs": "Editar palabra en español",
+                "editEn": "Editar palabra en inglés",
+                "changeStatus": "Cambiar estado",
+                "noData": "No hay resultados con tu búsqueda."
+            },
+            "dialogs": {
+                "create": {
+                    "titleDialog": "Crear palabra",
+                    "word_es": "Palabra en español",
+                    "word_en": "Palabra en inglés",
+                    "definition_es": "Definición en español",
+                    "definition_en": "Definición en inglés",
+                    "submit": "Crear"
+                },
+                "update": {
+                    "titleDialog": "Actualizar palabra",
+                    "word": "Palabra",
+                    "definition": "Definición",
+                    "submit": "Actualizar",
+                    "errors": {
+                        "noData": "No se ha podido identificar la palabra."
+                    }
+                }
+            }
         }
     }
 }
