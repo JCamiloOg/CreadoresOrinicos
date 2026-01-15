@@ -1,10 +1,30 @@
 import conn from "@/config/db";
-import { Glossary, GlossaryByID } from "@/types/glossary";
+import { GetWords, Glossary, GlossaryByID } from "@/types/glossary";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 export async function findAllWords(lang: string) {
     try {
         const [row] = await conn.query<Glossary[] & RowDataPacket[]>("SELECT g.id, g.status, g.delete_at, gt.lang, gt.word, gt.description FROM glossary g INNER JOIN glossary_translations gt ON gt.word_id = g.id WHERE gt.lang = ?", [lang]);
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener las palabras.");
+    }
+}
+
+export async function countWords() {
+    try {
+        const [row] = await conn.query<{ count: number }[] & RowDataPacket[]>("SELECT COUNT(*) AS count FROM glossary WHERE status = 1");
+        return row[0].count;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener las palabras.");
+    }
+}
+
+export async function findWords(lang: string, limit: number, offset: number) {
+    try {
+        const [row] = await conn.query<GetWords[] & RowDataPacket[]>("SELECT w.id, wt.word, wt.description FROM glossary w INNER JOIN glossary_translations wt ON wt.word_id = w.id WHERE wt.lang = ? AND w.status = 1 ORDER BY w.id DESC LIMIT ?,?", [lang, offset, limit]);
         return row;
     } catch (error) {
         console.error(error);
