@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { findAllUsers, findUserByID, findUserByUserName, insertUser, modifyStatusUser, modifyUser } from "@/models/users.model";
+import { findAllUsers, findUserByID, findUserByUserName, insertUser, modifyPassword, modifyStatusUser, modifyUser } from "@/models/users.model";
 import { SECRET_KEY } from "@/config/env";
 import crypto from "crypto";
 import { token, User, UserByID } from "@/types/user";
@@ -108,14 +108,15 @@ export async function updateUser(req: Request<{ id: string }, unknown, { usernam
         const { id } = req.params;
         const { username, password } = req.body;
 
-        const user = await findUserByID(id);
-
         if (password) {
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
-            await modifyUser(id, username, hashedPassword);
+            await Promise.all([
+                modifyUser(id, username),
+                modifyPassword(id, hashedPassword)
+            ]);
         } else {
-            await modifyUser(id, username, user.password);
+            await modifyUser(id, username);
         }
 
         return res.status(200).json({ message: "Usuario actualizado correctamente." });

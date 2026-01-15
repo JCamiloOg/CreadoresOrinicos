@@ -5,7 +5,7 @@ import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 export async function findUserByID(id: string) {
     try {
-        const [row] = await conn.query<UserByID[]>(`SELECT id, user, status, password FROM users WHERE id = ?`, [id]);
+        const [row] = await conn.query<UserByID[]>(`SELECT id, username, status, password FROM users WHERE id = ?`, [id]);
 
         return row[0];
     } catch (error) {
@@ -17,7 +17,7 @@ export async function findUserByID(id: string) {
 
 export async function findUserByUserName(username: string) {
     try {
-        const [row] = await conn.query<userByUserName[]>("SELECT id, status, password, user FROM users WHERE user = ?", [username]);
+        const [row] = await conn.query<userByUserName[]>("SELECT id, status, password, username FROM users WHERE username = ?", [username]);
 
         return row[0];
     } catch (error) {
@@ -37,14 +37,24 @@ export async function findAllUsers() {
     }
 }
 
-export async function modifyUser(id: string, user: string, password: string) {
+export async function modifyUser(id: string, user: string) {
     try {
-        const [result] = await conn.query<ResultSetHeader>("UPDATE users SET password = ?, user = ?  WHERE id = ?", [password, user, id]);
+        const [result] = await conn.query<ResultSetHeader>("UPDATE users SET username = ?  WHERE id = ?", [user, id]);
 
         return result;
     } catch (error) {
         console.error(error);
         throw new Error("Error al actualizar el usuario.");
+    }
+}
+
+export async function modifyPassword(id: string, password: string) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("UPDATE users SET password = ? WHERE id = ?", [password, id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al actualizar la contraseña.");
     }
 }
 
@@ -76,7 +86,7 @@ export async function removeUsers() {
 
 export async function insertUser(id: string, username: string, password: string) {
     try {
-        const [result] = await conn.query<ResultSetHeader>("INSERT INTO users (id, user, password) VALUES (?, ?, ?)", [id, username, password]);
+        const [result] = await conn.query<ResultSetHeader>("INSERT INTO users (id, username, password) VALUES (?, ?, ?)", [id, username, password]);
 
         return result;
     } catch (error) {
