@@ -24,3 +24,5 @@ export type UpdateArticle = Omit<Article, "id" | "lang" | "delete_at" | "text" |
     description: string,
     lang: string
 }
+
+export type FindArticles = Pick<Article, "id" | "title" | "subtitle" | "date" | "main_image" | "text">

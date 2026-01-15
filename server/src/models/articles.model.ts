@@ -1,11 +1,31 @@
 import conn from "@/config/db";
-import { Article, ArticleByID } from "@/types/articles";
+import { Article, ArticleByID, FindArticles } from "@/types/articles";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 
 export async function findAllArticles(lang: string) {
     try {
         const [row] = await conn.query<Article[] & RowDataPacket[]>("SELECT a.date, a.id, a.main_image, a.status, a.delete_at, at.lang, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id WHERE at.lang = ?", [lang]);
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los artículos.");
+    }
+}
+
+export async function countArticles() {
+    try {
+        const [row] = await conn.query<{ count: number }[] & RowDataPacket[]>("SELECT COUNT(*) AS count FROM articles WHERE status = 1");
+        return row[0].count;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los artículos.");
+    }
+}
+
+export async function findArticles(lang: string, limit: number, offset: number) {
+    try {
+        const [row] = await conn.query<FindArticles[] & RowDataPacket[]>(`SELECT a.id, a.date, a.main_image, at.title, at.subtitle, at.text FROM articles a INNER JOIN articles_translations at ON a.id = at.article_id WHERE at.lang = ? AND status = 1 ORDER BY a.date DESC LIMIT ?,? `, [lang, offset, limit]);
         return row;
     } catch (error) {
         console.error(error);
