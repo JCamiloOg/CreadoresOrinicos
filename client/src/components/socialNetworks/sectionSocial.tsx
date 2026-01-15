@@ -5,7 +5,7 @@ import SplitType from "split-type";
 import { CustomEase } from "gsap/all";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWhatsapp, faInstagram, faFacebook, faTiktok } from "@fortawesome/free-brands-svg-icons";
+import { faWhatsapp, faInstagram, faFacebook, faTiktok, faYoutube, faSpotify } from "@fortawesome/free-brands-svg-icons";
 
 gsap.registerPlugin(CustomEase);
 
@@ -23,6 +23,10 @@ export default function SectionSocial() {
     function saveRowRef(el: HTMLDivElement | null, index: number) {
         if (el) rowsRef.current[index] = el;
     }
+
+    const openLink = (url: string) => {
+        window.open(url, "_blank");
+    };
 
 
     useEffect(() => {
@@ -177,9 +181,9 @@ export default function SectionSocial() {
             <div className="color-container">
                 <div onClick={() => handleRowClick(0)} ref={(el) => saveRowRef(el, 0)} className="color-row color-1 light-text pointer-events-none">
                     <div className="color-content" >
-                        <div className="color-hex hidden xl:block" onClick={(e) => { e.stopPropagation(); copy("#0A0A0A"); }}>{t("socialNetworks.titleLeft")}</div>
+                        <div className="color-hex hidden xl:block" onClick={(e) => { e.stopPropagation(); copy("#0A0A0A"); }}></div>
                         <div className="color-number"></div>
-                        <div className="color-name hidden xl:block">{t("socialNetworks.titleRight")}</div>
+                        <div className="color-name hidden xl:block"></div>
                     </div>
                     <div className="expanded-content light-text">
                         <div className="expanded-color-info">
@@ -195,7 +199,7 @@ export default function SectionSocial() {
 
                 <div onClick={() => handleRowClick(1)} ref={(el) => saveRowRef(el, 1)} className="color-row bg-[#075e54] light-text">
                     <div className="color-content">
-                        <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex hidden md:block">{t("socialNetworks.copyLink")}</div>
+                        <div onClick={(e) => { e.stopPropagation(); openLink("https://wa.link/wtqkic"); }} className="color-hex block">{t("socialNetworks.goToLink")}</div>
                         <div className="color-number hidden md:block">WhatsApp</div>
                         <div className="color-name "><FontAwesomeIcon icon={faWhatsapp} size="4x" /></div>
                     </div>
@@ -208,7 +212,7 @@ export default function SectionSocial() {
                             <div className="expanded-details">
                                 {/* <div className="detail-number"></div> */}
                                 <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex">{t("socialNetworks.copyLink")}</div>
-                                <div onClick={(e) => { e.stopPropagation(); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
+                                <div onClick={(e) => { e.stopPropagation(); openLink("https://wa.link/wtqkic"); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
                             </div>
                         </div>
                     </div>
@@ -216,7 +220,7 @@ export default function SectionSocial() {
 
                 <div onClick={() => handleRowClick(2)} ref={(el) => saveRowRef(el, 2)} className="color-row bg-[#cf2872] light-text">
                     <div className="color-content">
-                        <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex hidden md:block">{t("socialNetworks.copyLink")}</div>
+                        <div onClick={(e) => { e.stopPropagation(); openLink("https://www.instagram.com/creadoresoniricos/"); }} className="color-hex block">{t("socialNetworks.goToLink")}</div>
                         <div className="color-number hidden md:block">Instagram</div>
                         <div className="color-name">
                             <FontAwesomeIcon icon={faInstagram} size="4x" />
@@ -230,7 +234,7 @@ export default function SectionSocial() {
                             </div>
                             <div className="expanded-details">
                                 <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex">{t("socialNetworks.copyLink")}</div>
-                                <div onClick={(e) => { e.stopPropagation(); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
+                                <div onClick={(e) => { e.stopPropagation(); openLink("https://www.instagram.com/creadoresoniricos/"); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
                             </div>
                         </div>
                     </div>
@@ -238,7 +242,7 @@ export default function SectionSocial() {
 
                 <div onClick={() => handleRowClick(3)} ref={(el) => saveRowRef(el, 3)} className="color-row bg-[#1773ea] light-text">
                     <div className="color-content">
-                        <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex hidden md:block">{t("socialNetworks.copyLink")}</div>
+                        <div onClick={(e) => { e.stopPropagation(); openLink("https://www.facebook.com/profile.php?id=61573516347045"); }} className="color-hex block">{t("socialNetworks.goToLink")}</div>
                         <div className="color-number hidden md:block">Facebook</div>
                         <div className="color-name">
                             <FontAwesomeIcon icon={faFacebook} size="4x" />
@@ -253,7 +257,7 @@ export default function SectionSocial() {
                             <div className="expanded-details">
                                 {/* <div className="detail-number"></div> */}
                                 <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex">{t("socialNetworks.copyLink")}</div>
-                                <div onClick={(e) => { e.stopPropagation(); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
+                                <div onClick={(e) => { e.stopPropagation(); openLink("https://www.facebook.com/profile.php?id=61573516347045"); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
                             </div>
                         </div>
                     </div>
@@ -261,7 +265,7 @@ export default function SectionSocial() {
 
                 <div onClick={() => handleRowClick(4)} ref={(el) => saveRowRef(el, 4)} className="color-row bg-[#040404] light-text">
                     <div className="color-content">
-                        <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex hidden md:block">{t("socialNetworks.copyLink")}</div>
+                        <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex block">{t("socialNetworks.copyLink")}</div>
                         <div className="color-number hidden md:block">Tik tok</div>
                         <div className="color-name">
                             <FontAwesomeIcon icon={faTiktok} size="4x" />
@@ -272,6 +276,52 @@ export default function SectionSocial() {
                             <div className="expanded-color-name">
                                 <FontAwesomeIcon icon={faTiktok} />
                                 <h2>Tik tok</h2>
+                            </div>
+                            <div className="expanded-details">
+                                {/* <div className="detail-number">C - [05]</div> */}
+                                <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex">{t("socialNetworks.copyLink")}</div>
+                                <div onClick={(e) => { e.stopPropagation(); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div onClick={() => handleRowClick(5)} ref={(el) => saveRowRef(el, 5)} className="color-row bg-[#ee0f0f] light-text">
+                    <div className="color-content">
+                        <div onClick={(e) => { e.stopPropagation(); openLink("https://youtube.com/@creadoresoniricos"); }} className="color-hex block">{t("socialNetworks.goToLink")}</div>
+                        <div className="color-number hidden md:block">Youtube</div>
+                        <div className="color-name">
+                            <FontAwesomeIcon icon={faYoutube} size="4x" />
+                        </div>
+                    </div>
+                    <div className="expanded-content light-text">
+                        <div className="expanded-color-info">
+                            <div className="expanded-color-name">
+                                <FontAwesomeIcon icon={faYoutube} />
+                                <h2>Youtube</h2>
+                            </div>
+                            <div className="expanded-details">
+                                {/* <div className="detail-number">C - [05]</div> */}
+                                <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex">{t("socialNetworks.copyLink")}</div>
+                                <div onClick={(e) => { e.stopPropagation(); openLink("https://youtube.com/@creadoresoniricos"); }} className="detail-oklch">{t("socialNetworks.goToLink")}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div onClick={() => handleRowClick(6)} ref={(el) => saveRowRef(el, 6)} className="color-row bg-[#1db954] light-text">
+                    <div className="color-content">
+                        <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex block">{t("socialNetworks.copyLink")}</div>
+                        <div className="color-number hidden md:block">Spotify</div>
+                        <div className="color-name">
+                            <FontAwesomeIcon icon={faSpotify} size="4x" />
+                        </div>
+                    </div>
+                    <div className="expanded-content light-text">
+                        <div className="expanded-color-info">
+                            <div className="expanded-color-name">
+                                <FontAwesomeIcon icon={faSpotify} />
+                                <h2>Spotify</h2>
                             </div>
                             <div className="expanded-details">
                                 {/* <div className="detail-number">C - [05]</div> */}
