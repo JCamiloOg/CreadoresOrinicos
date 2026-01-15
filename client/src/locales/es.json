@@ -1,4 +1,86 @@
 {
+    "index": {
+        "bioOmar": "Psicólogo/psicoanalista y artista con una trayectoria dedicada al estudio profundo del alma humana, el campo de lo simbólico y los procesos inconscientes. Ha desarrollado una metodología única basada en el análisis de cuentos de hadas, los arquetipos y la interpretación narrativo-simbólica de los sueños.",
+        "mission": "Misión",
+        "vision": "Visión",
+        "missionDescription": "Nuestra misión es abrir puertas, acompañar procesos y entregar herramientas que permitan transformar la vida cotidiana desde la claridad, la intuición y la conexión con el ser profundo.",
+        "visionDescription": "Buscamos crear una comunidad de soñadores que valore el autoconocimiento y encuentre en los sueños un camino real y accesible para sanar, comprender y despertar.",
+        "philosophy": {
+            "title": "Filosofía y enfoque",
+            "point-1": "La psicología profunda y los arquetipos",
+            "point-2": "Mitos, cuentos y simbolismo universa",
+            "point-3": "Narrativa personal como transformación",
+            "point-4": "Escucha del mundo interior"
+        },
+        "readMore": "Leer más",
+        "methodology": {
+            "title": "Metodología",
+            "p-1": "En Creadores Oníricos creemos que los sueños son un puente entre la consciencia y el alma.",
+            "p-2": "Cada símbolo es una puerta, cada imagen es una historia, cada escenario onírico es un espejo."
+        },
+        "purpose": "Nuestro propósito es guiarte a conectar con esa mente creadora que te acompaña, para que al conocerte puedas transformar tu vida y descubrir que en este camino interior jamás estás solo."
+    },
+    "services": {
+        "title": "Nuestros servicios",
+        "p-1": "Cada espacio esta diseñado para que las personas puedan ver con claridad lo que su mundo interior quiere expresar.",
+        "p-2": "Sin filtros ni juicios.",
+        "differential": "Diferencial",
+        "readMore": "Leer más",
+        "readServices": "Ver servicios",
+        "itsForYou": "Es para ti si",
+        "price": "Los horarios, duración y precios se envían por privado según los requerimientos.",
+        "point-1": "🌙 Sientes que tus sueños traen mensajes importantes.",
+        "point-2": "🔄 Estás en un momento de cambio, crisis o búsqueda.",
+        "point-3": "🗝️ Te interesa el simbolismo, los cuentos de hadas o la psicología profunda.",
+        "point-4": "🪞 Quieres comprender mejor tu mundo interior.",
+        "point-5": "🎓 Eres estudiante de psicología o terapeuta.",
+        "point-6": "🎨 Eres creador, artista o escritor y buscas inspiración.",
+        "point-7": "🔮 Deseas conectar con tu intuición, tu inconsciente y tu historia personal.",
+        "goBack": "Volver",
+        "individual": {
+            "title": "Individual",
+            "description": "Una experiencia íntima y profunda donde exploramos tus sueños, símbolos y movimientos internos desde la psicología profunda. En este espacio, te guiamos a reconocer las fuerzas arquetipicas que operan desde tu inconsciente, revelando aquello que tu alma ya sabe, pero tu conciencia aún no ha escuchado.",
+            "paragraph_2": "Cada sesión es un puente entre tu mundo interno y tu realidad cotidiana: lo que descubres adentro se alinea con transformaciones reales afuera. Aquí acompañamos tu proceso desde la metáfora, lo simbólico y el lenguaje onírico, para que avances hacia una versión más consciente y auténtica de ti",
+            "differential": "Un abordaje simbólico-psicológico único que integra sueños, fantasías arquetipos y narrativas internas para activar cambios reales en lo cotidiano. Tu sueño guía el proceso, y tu vida responde activamente."
+        },
+        "couple": {
+            "title": "Pareja",
+            "description": "Un espacio seguro donde cada miembro de la pareja escucha no solo al otro, sino también a su propio mundo interno; a través de los sueños, los símbolos y la toma de conciencia de las proyecciones psíquicas que la pareja se hace mutuamente. Acompañamos este proceso para descubrir las dinámicas ocultas que influyen en el vínculo: aquello que no se dice, pero se sueña; aquello que no se nombra, pero se repite.",
+            "paragraph_2": "Desde la psicología profunda, ayudamos a la pareja a transformar heridas, patrones y tensiones mediante una comprensión más honesta, compasiva y consciente del camino juntos.",
+            "differential": "Un enfoque simbólico que revela la mitología inconsciente de la pareja. Lo que cada uno trabaja internamente se refleja en el vínculo, generando cambios reales en la relación."
+        },
+        "conferences": {
+            "title": "Conferencias profundas",
+            "description": "Charlas inspiradoras y revitalizantes donde los sueños, los arquetipos y la vida psíquica se presentan como escenarios fundamentales para comprender la experiencia humana. Cada conferencia transforma la forma en que el público entiende sus procesos internos, mostrando cómo lo simbólico y lo onírico modelan la realidad cotidiana.",
+            "paragraph_2": "",
+            "differential": "Narrativas poderosas que conectan ciencia, poesía, arte y espiritualidad con ejemplos prácticos y conectados con los fenómenos sociales de la época. El público se lleva claridad, motivación y una nueva mirada sobre sí mismo."
+        },
+        "workshops": {
+            "title": "Talleres",
+            "description": "Encuentros experienciales donde el mundo de los sueños cobra vida como herramienta creativa, psicológica, espiritual y transformadora. Aquí guiamos a los participantes a explorar los complejos psicológicos personales y colectivos.",
+            "paragraph_2": "Cada taller está diseñado para provocar un despertar: lo que descubres en tu mundo interno te permite actuar con mayor claridad, poder personal y coherencia para interactuar en tu realidad exterior.",
+            "differential": "Metodologías únicas basadas en psicología profunda, arte, simbolismo y dinámicas vivenciales. Los talleres de Creadores Oníricos mueven la energía psiquica para que la transformación sea un hecho desde adentro y una manifestación en las relaciones interpersonales de cada persona."
+        },
+        "webinars": {
+            "title": "Webinars Masterclass",
+            "description": "Espacios online formativos, intensivos y profundamente reveladores. Nos enfocamos en enseñar cómo relacionarnos activamente con nuestros sueños, comprender arquetipos y trabajar con el inconsciente siendo aplicable al acontecer de la vida diaria de las personas.",
+            "paragraph_2": "Lo que aprendes te permite entender tu mundo interno con un nuevo lenguaje, desbloquear procesos personales y accionar cambios en tu realidad externa. ",
+            "paragraph_3": "Usamos la imaginación creadora para que el conocimiento sea encarnado desde las profundidades del ser, otorgando en tu vida una nueva realidad.",
+            "differential": "Contenido claro, profundo y aplicable, guiado desde el pensamiento onírico y la psicología simbólica. No solo se aprende: se transforma."
+        },
+        "consulting": {
+            "title": "Asesorías especializadas",
+            "description": "Acompañamiento personalizado para creadores, terapeutas, artistas, psicólogos y emprendedores que necesiten integrar la mirada simbólica y onírica en sus proyectos o procesos.",
+            "paragraph_2": "Estudiamos y exploramos tus ideas, tu propósito y tu visión, entendiendo qué existen fuerzas internas que al acompañarte te guian y facilitan tu camino o, por lo contrario, te bloquean. ¡siempre! hay fuerzas internas que te acompañan.  Te ayudamos a alinear tu mundo psíquico con tus metas externas.",
+            "differential": "Una asesoría que va más allá de lo técnico: trabajamos con tu mundo inconsciente para que tu proyecto tenga alma, coherencia y realidad integral. Es decir, conexión y correspondencia entre tu interior y tú exterior."
+        },
+        "encounters": {
+            "title": "Encuentros creativos",
+            "description": "Experiencias vivenciales donde combinamos el poder de la imaginación activa la creatividad, la ventura del arte, la profundidad de lo simbólico y la exploración de tus paisajes internos. Aquí se crean personajes psíquicos, escenarios oniricos, alidos poderosos y narrativas simbólicas que revelan tu mitología personal.",
+            "paragraph_2": "El proceso creativo se convierte en terapia: lo que surge en la obra es un mensaje del alma que transforma tu vida afuera.",
+            "differential": "Integramos arte, psicología profunda, sueños y creatividad como un camino de autoconocimiento. Un laboratorio de imagenes, sensaciones y afectos donde el mundo interno se expresa para reordenar tu vida exterior."
+        }
+    },
     "navBar": {
         "home": "Inicio",
         "blog": "Blog",
@@ -8,7 +90,68 @@
         "contact": "Contacto"
     },
     "heroSection": {
-        "slogan": "Soñamos para despertar"
+        "slogan": "Soñamos para despertar",
+        "explore": "Explorar",
+        "card1": "Sesiones individuales",
+        "card2": "Conferencias profundas",
+        "card3": "Encuentros creativos"
+    },
+    "aboutUs": {
+        "slogan": "Soñamos para despertar",
+        "creadoresOniricos": {
+            "p-1": "Creadores Oníricos es un espacio dedicado a explorar la profundidad del alma humana a través del lenguaje de los sueños. Desde una mirada psicológica, poética y artística acompañamos a cada persona en el reconocimiento de su mundo interior para que pueda encontrar claridad transformación y sentido.",
+            "p-2": "Es un proyecto donde los sueños encuentran lenguaje, donde las historias revelan su sabiduría y donde cada persona puede iniciar un camino de autodescubrimiento."
+        },
+        "bioOmar": {
+            "p-1": "Psicólogo/psicoanalista y artista con una trayectoria dedicada al estudio profundo del alma humana, el campo de lo simbólico y los procesos inconscientes. Ha desarrollado una metodología única basada en el análisis de cuentos de hadas, los arquetipos y la interpretación narrativo-simbólica de los sueños.",
+            "p-2": "Su enfoque parte de la escucha profunda, la interpretación cuidadosa de los símbolos y el acompañamiento respetuoso de cada proceso personal. La labor del Dr. Omar no busca adivinar ni predecir, sino revelar lo que el inconsciente quiere decir y conectarlo con las vicisitudes d ela vida diaria del paciente y las fuerzas de su alma que lo invitan a cumplir su destino."
+        },
+        "mission": {
+            "title": "Misión",
+            "p-1": "Guiar a las personas hacia la comprensión profunda de sus sueños y su mundo interno a través del arte y la psicología profunda.",
+            "p-2": "Nuestra misión es abrir puertas, acompañar procesos y entregar herramientas que permitan transformar la vida cotidiana desde la claridad, la intuición y la conexión con el ser profundo."
+        },
+        "vision": {
+            "title": "Visión",
+            "p-1": "Ser un referente latinoamericano en el trabajo onírico y simbólico, integrando psicología, mitología, espiritualidad y arte.",
+            "p-2": "Buscamos crear una comunidad de soñadores que valore el autoconocimiento y encuentre en los sueños un camino real y accesible para sanar, comprender y despertar."
+        },
+        "philosophy": {
+            "title": "Filosofía y enfoque",
+            "p-1": "En Creadores Oníricos creemos que los sueños son un puente entre la consciencia y el alma. Cada símbolo es una puerta, cada imagen es una historia, cada escenario onírico es un espejo.",
+            "p-2": "Cada sueño muestra el camino;  nuestra labor es ayudarte a entrar en un ralación dinámica, valiente, expansiva e integrativa que ha de unificar tu realidad externa y tu realidad interior.",
+            "points": {
+                "subtitle": "Nuestra filosofía se sustenta en",
+                "1": "🧠 La psicología profunda y los arquetipos.",
+                "2": "🧚‍♂️ Los cuentos de hadas y la mitología universal.",
+                "3": "🃏 El tarot como herramienta de contemplación y proyección del inconciente personal.",
+                "4": "📖 La narrativa personal como camino de transformación.",
+                "5": "🗣️ El arte de escuchar, dialogar, comprender y relacionarnos, con las fuerzas vivas del mundo interior."
+            }
+        }
+    },
+    "blog": {
+        "noArticles": "No hay articulos para mostrar.",
+        "glossary": "Palabras claves"
+    },
+    "glossary": {
+        "title": "PALABRAS",
+        "noWords": "No hay palabras para mostrar.",
+        "paragraph": "A lo largo del blog pueden aparecer palabras o conceptos que no son habituales. En este apartado los recopilamos y explicamos de manera clara para que puedas entender mejor cada artículo, independientemente de tu nivel de conocimiento."
+    },
+    "events": {
+        "title": "Próximos Eventos",
+        "noEvents": "No hay eventos para mostrar.",
+        "modality1": "Presencial",
+        "modality2": "Virtual",
+        "link": "Enlace de inscripción"
+    },
+    "footer": {
+        "contact": "Contacto",
+        "schedule": "Agendar",
+        "chars": "Características",
+        "bilingual": "Atención bilingüe",
+        "modality": "Modalidad presenicial y/o virtual"
     },
     "socialNetworks": {
         "titleLeft": "Contacto",
@@ -16,6 +159,12 @@
         "copyLink": "Copiar enlace",
         "copied": "Enlace copiado al portapapeles",
         "goToLink": "Abrir enlace"
+    },
+    "404": {
+        "title": "Página no encontrada",
+        "description": "Lo sentimos, la página que estás buscando no existe.",
+        "description_2": "Puede que esto no signifique nada.",
+        "goBack": "Volver"
     },
     "admin": {
         "siderbar": {
@@ -289,6 +438,57 @@
                     "submit": "Actualizar",
                     "errors": {
                         "noData": "No se ha podido identificar la palabra."
+                    }
+                }
+            }
+        },
+        "users": {
+            "header": {
+                "link": "Inicio",
+                "title": "Usuarios"
+            },
+            "errors": {
+                "requiredUser": "El usuario es requerido.",
+                "requiredPassword": "La contraseña es requerida.",
+                "minLengthUser": "El usuario es muy corto.",
+                "maxLengthUser": "El usuario es muy largo.",
+                "minLengthPassword": "La contraseña es muy corta.",
+                "maxLengthPassword": "La contraseña es muy larga.",
+                "patternPassword": "La contraseña debe tener al menos 3 números y una mayúscula."
+            },
+            "title": "USUARIOS",
+            "table": {
+                "username": "Usuario",
+                "password": "Contraseña",
+                "status": "Estado del usuario",
+                "status1": "Activado",
+                "status0": "Desactivado",
+                "actions": "Acciones",
+                "search": "Buscar por usuario",
+                "columns": "Columnas",
+                "buttonNext": "Siguiente",
+                "buttonPrev": "Anterior",
+                "page": "Página",
+                "of": "de",
+                "add": "Añadir usuario",
+                "edit": "Editar usuario",
+                "changeStatus": "Cambiar estado",
+                "noData": "No hay resultados con tu búsqueda."
+            },
+            "dialogs": {
+                "create": {
+                    "titleDialog": "Crear usuario",
+                    "username": "Usuario",
+                    "password": "Contraseña",
+                    "submit": "Crear"
+                },
+                "update": {
+                    "titleDialog": "Actualizar usuario",
+                    "username": "Usuario",
+                    "password": "Contraseña",
+                    "submit": "Actualizar",
+                    "errors": {
+                        "noData": "No se ha podido identificar el usuario."
                     }
                 }
             }
