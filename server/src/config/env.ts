@@ -1,5 +1,11 @@
 import dotenv from "dotenv";
-dotenv.config();
+
+const env = process.env.NODE_ENV || "development";
+dotenv.config({
+    path: `.env.${env}`
+});
+
+console.log(`env loaded: .env.${env}`);
 
 export const DB_HOST = process.env.DB_HOST;
 export const PORT = process.env.PORT;

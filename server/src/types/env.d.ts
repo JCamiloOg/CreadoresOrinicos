@@ -5,6 +5,7 @@ declare namespace NodeJS {
         DB_USER: string,
         DB_PASSWORD: string,
         DB_DATABASE: string,
+        NODE_ENV: "development" | "production",
         HOSTNAME: string
         CORS_ORIGIN: string,
         SECRET_KEY: string

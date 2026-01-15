@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "src/server.ts",
   "scripts": {
-    "dev": "tsx watch ./src/server.ts",
+    "dev": "cross-env NODE_ENV=development tsx watch ./src/server.ts",
     "build": "tsc && tsc-alias",
-    "start": "node dist/server.js"
+    "start": "cross-env NODE_ENV=production node dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "@types/morgan": "^1.9.10",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.10.0",
+    "cross-env": "^10.1.0",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
