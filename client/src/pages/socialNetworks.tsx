@@ -1,42 +1,38 @@
-import Background from "@/components/background/background";
 import Loader from "@/components/loader/loader";
 import NavBar from "@/components/navBar/navBar";
 import SectionSocial from "@/components/socialNetworks/sectionSocial";
 import i18n from "@/config/i18n";
+import onChangeLanguage from "@/hooks/useChangeLanguage";
 import { usePageLoader } from "@/hooks/usePageLoader";
 import { useEffect, useState } from "react";
 
 export default function SocialNetworks() {
     const { loading, startLoading, stopLoading } = usePageLoader();
     const [loadingLanguaje, setLoadingLanguaje] = useState(false);
-
+    const lang = i18n.language;
 
     useEffect(() => {
-        document.title = i18n.language == "en" ? "Contacto" : "Contact";
+        document.title = lang === "en" ? "Contact" : "Contacto";
+    }, [lang]);
+
+    useEffect(() => {
         startLoading();
 
-        setTimeout(() => stopLoading(), 1000);
-    }, [startLoading, stopLoading]);
+        const timer = setTimeout(() => stopLoading(), 500);
+
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [startLoading, stopLoading, lang]);
 
     useEffect(() => {
-        i18n.on("languageChanging", () => {
-            document.title = i18n.language == "en" ? "Contacto" : "Contact";
-            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-            setLoadingLanguaje(true);
-        });
-        i18n.on("languageChanged", () => {
-            setTimeout(() => {
-                setLoadingLanguaje(false);
-            }, 500);
-        });
-
+        onChangeLanguage(setLoadingLanguaje);
     }, []);
 
 
     return (
         <>
             <Loader isVisible={loading || loadingLanguaje} />
-            <Background />
             <NavBar />
             <SectionSocial />
         </>
