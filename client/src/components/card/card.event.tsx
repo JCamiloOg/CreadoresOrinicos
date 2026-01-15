@@ -65,7 +65,7 @@ export default function CardEvent({ event, alt }: Props) {
                     </ul>
                 </div>
                 <div className="description">
-                    <h1 title={event.title} className="font-romance text-gold text-3xl md:truncate md:w-80">{event.title}</h1>
+                    <h1 title={event.title} className="font-times text-gold text-3xl md:truncate md:w-80">{event.title}</h1>
                     <h2 className="font-times text-baseYellow/70 text-xl ">{event.modality == "Presencial" ? t("modality1") : t("modality2")}</h2>
                     <p className="text-justify text-base h-20 mt-5  overflow-y-auto scrollMin"> {event.description}</p>
                     <p className="text-white/50 lg:hidden block">{lang === "es" ? "Click para ver más" : "Click to see more"}</p>

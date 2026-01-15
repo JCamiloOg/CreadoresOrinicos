@@ -38,7 +38,7 @@ export default function CardArticle({ article, idx, hasNext }: Props) {
                 </div>
 
                 <div className="right">
-                    <h1 className="text-gold font-romance pt-4 text-4xl">{article.title}</h1>
+                    <h1 className="text-gold font-times pt-4 text-4xl">{article.title}</h1>
 
                     <div className="w-fit  font-times text-baseYellow">
                         <h2>{article.subtitle}</h2>
