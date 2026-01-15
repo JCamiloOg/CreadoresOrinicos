@@ -11,6 +11,7 @@ import type { ApiError } from "@/types/apiError";
 import { useState } from "react";
 import i18n from "@/config/i18n";
 import { Button } from "../ui/button";
+import toggleLang from "@/hooks/useToggleLanguage";
 
 export default function FormLogin() {
     const { register, handleSubmit, formState: { errors } } = useForm<Login>();
@@ -100,8 +101,13 @@ export default function FormLogin() {
                                     >
                                         {t("form.submit")}
                                     </button>
-                                    <Button className="mt-10 w-50 bg-[#163ca3] hover:bg-[#163ca3]/50 cursor-pointer" type="button" onClick={() => i18n.changeLanguage(i18n.language == "es" ? "en" : "es")}>
+                                    <Button className="mt-10 w-50 bg-[#163ca3] hover:bg-[#163ca3]/50 cursor-pointer" type="button" onClick={toggleLang}>
                                         {i18n.language.toLocaleUpperCase()}
+                                    </Button>
+                                    <Button className="mt-10 w-full bg-[#163ca3] hover:bg-[#163ca3]/50 cursor-pointer" type="button" onClick={() => navigate("/")}>
+                                        {
+                                            i18n.language == "es" ? "Ir al inicio" : "Go to home"
+                                        }
                                     </Button>
                                 </div>
                             </form>
