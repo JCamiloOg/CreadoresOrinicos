@@ -24,3 +24,5 @@ export type CreateEvent = Omit<Events, "id" | "lang" | "status" | "delete_at" | 
 export type UpdateEvent = Pick<Events, "hour" | "modality" | "address" | "inscription_link" | "date">
 
 export type UpdateEventTranslations = Pick<Events, "title" | "description">
+
+export type GetEvents = Pick<Events, "id" | "title" | "description" | "image" | "date" | "hour" | "modality" | "address" | "inscription_link">

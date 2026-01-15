@@ -1,8 +1,12 @@
 import { axiosInstance } from "@/config/axios";
-import type { Events, UpdateEventTranslations } from "@/types/events";
+import type { Events, GetEvents, UpdateEventTranslations } from "@/types/events";
 
 export async function getAllEvents() {
     return await axiosInstance.get<{ redirect?: string, message: string, events: Events[] }>("/admin/events");
+}
+
+export async function getEvents(page: string | number) {
+    return await axiosInstance.get<{ message: string, events: GetEvents[], totalPages: number }>(`/events?page=${page}`);
 }
 
 export async function getEventByID(id: number, lang?: string) {
