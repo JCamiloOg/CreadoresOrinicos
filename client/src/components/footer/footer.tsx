@@ -1,0 +1,49 @@
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faComputer, faGlobe, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ButtonGlow from "../buttons/button.glow";
+import { useTranslation } from "react-i18next";
+import i18n from "@/config/i18n";
+
+export default function Footer() {
+    const { t } = useTranslation("translation", { keyPrefix: "footer" });
+
+    const lang = i18n.language;
+
+    const goToSchedule = () => {
+        const msg = lang == "es" ? "Hola, estoy interesado en sus servicios!" : "Hello, I am interested in your services!";
+        window.open(`https://wa.me/3019525482?text=${msg}`);
+    };
+    return (
+        <div className="w-full mt-20 ">
+            <div className="bg-black/50 grid grid-cols-12 py-4 px-10 ">
+                <div className="md:col-span-4 col-span-12  ">
+                    <div className="flex flex-col justify-center items-center h-full">
+                        <h3 className="text-3xl text-gold font-romance">{t("contact")}</h3>
+                        <a href="https://wa.link/wtqkic" className="flex gap-1 justify-center " target="_blank"><FontAwesomeIcon className="mt-2" icon={faPhone} /> +57 3019525482</a>
+                        <a href="mailto:creadoresoniricos@gmail.com" className="flex gap-1 justify-center " target="_blank"><FontAwesomeIcon className="mt-2" icon={faEnvelope} />creadoresoniricos@gmail.com</a>
+                        <p className="flex gap-1 justify-center "><FontAwesomeIcon className="mt-2" icon={faGlobe} />@creadoresoniricos</p>
+                    </div>
+                </div>
+                <div className="md:col-span-4 col-span-12 mt-5 md:mt-0 ">
+                    <div className="flex justify-center items-center h-full">
+                        <ButtonGlow onClick={goToSchedule}>{t("schedule")}</ButtonGlow>
+                    </div>
+                </div>
+                <div className="md:col-span-4 col-span-12 mt-5 md:mt-0 ">
+                    <div className="rounded-full border-2 border-[#07161b]  py-4 px-10 bg-black/30">
+                        <h5 className="font-romance text-gold text-2xl md:text-3xl text-center">{t("chars")}</h5>
+                        <div className="flex gap-2 mt-5">
+                            <FontAwesomeIcon icon={faGlobe} className="text-baseYellow md:text-xl mt-2" />
+                            <p className="md:text-xl">{t("bilingual")}</p>
+                        </div>
+                        <div className="flex gap-2 mt-5">
+                            <FontAwesomeIcon icon={faComputer} className="text-baseYellow md:text-xl mt-2" />
+                            <p className="md:text-xl">{t("modality")}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
