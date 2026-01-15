@@ -16,3 +16,5 @@ export type CreateWord = {
 }
 
 export type UpdateWord = Pick<Word, "word" | "description">
+
+export type GetWords = Pick<Word, "id" | "word" | "description">

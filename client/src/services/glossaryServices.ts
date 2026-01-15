@@ -1,8 +1,12 @@
 import { axiosInstance } from "@/config/axios";
-import type { CreateWord, UpdateWord, Word } from "@/types/glossary";
+import type { CreateWord, GetWords, UpdateWord, Word } from "@/types/glossary";
 
 export async function getAllWords() {
     return await axiosInstance.get<{ redirect?: string, message: string, words: Word[] }>("/admin/glossary");
+}
+
+export async function getWords(page: number) {
+    return await axiosInstance.get<{ message: string, words: GetWords[], totalPages: number }>(`/glossary?page=${page}`);
 }
 
 export async function getWordByID(id: number, lang?: string) {
