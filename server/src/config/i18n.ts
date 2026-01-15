@@ -10,7 +10,7 @@ i18n
             loadPath: `locales/{{lng}}/{{ns}}.json`,
         },
         preload: ["en", "es"],
-        ns: ["auth", "articles", "common", "events", "glossary"],
+        ns: ["auth", "articles", "common", "events", "glossary", "validate"],
         defaultNS: 'common',
     });
 
