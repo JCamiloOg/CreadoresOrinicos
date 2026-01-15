@@ -1,13 +1,41 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./fonts.css";
+@import "./text.css";
+@import "./animations.css";
+@import "./effects.css";
 
+
+@tailwind utilities;
 
 
 @custom-variant dark (&:is(.dark *));
 
+
+
 @theme {
-  --font-romance: "RomanceFatal", "serif"
+  --font-romance: "RomanceFatal", "serif";
+  --font-times: "Times New Roman", "serif";
+  --color-base: #fdf4cf;
+  --color-baseYellow: #f2d560;
+}
+
+@layer utilities {
+  .text-gold {
+    background: linear-gradient(to bottom,
+        #fffbe8 0%,
+        #f5d98b 20%,
+        #d4a64a 45%,
+        #a8742a 70%,
+        #6b3f0f 100%);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+
+    text-shadow: 0 0 6px rgba(255, 215, 120, 0.35);
+  }
+
 }
 
 
