@@ -5,6 +5,7 @@ import { usePageLoader } from "@/hooks/usePageLoader";
 import { verifySession } from "@/services/userServices";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import img from "@/assets/astroTree.webp";
 
 export default function Login() {
     const navigate = useNavigate();
@@ -46,7 +47,7 @@ export default function Login() {
     return (
         <>
             <Loader isVisible={loading || loadingLanguaje} />
-            <div className="h-screen bg-cover bg-center relative bg-no-repeat" style={{ backgroundImage: "url(https://i.postimg.cc/vTXTYy2P/login-bg.jpg)" }}>
+            <div className="h-screen bg-cover bg-center relative bg-no-repeat" style={{ backgroundImage: `url(${img})` }}>
                 <FormLogin />
             </div>
         </>
