@@ -1,10 +1,31 @@
 import conn from "@/config/db";
-import { Events, EventsByID } from "@/types/events";
+import { Events, EventsByID, FindEvents } from "@/types/events";
 import { ResultSetHeader, RowDataPacket } from "mysql2";
 
 export async function findAllEvents(lang: string) {
     try {
         const [row] = await conn.query<Events[] & RowDataPacket[]>("SELECT e.id, e.date, e.hour, e.modality, e.address, e.inscription_link, e.image, e.status, e.delete_at, et.lang, et.title, et.description FROM events e INNER JOIN events_translations et ON e.id = et.event_id WHERE et.lang = ?", [lang]);
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los eventos.");
+    }
+}
+
+export async function countEvents() {
+    try {
+        const [row] = await conn.query<{ count: number }[] & RowDataPacket[]>("SELECT COUNT(*) AS count FROM events WHERE status = 1");
+        return row[0].count;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los eventos.");
+    }
+}
+
+export async function findEvents(lang: string, limit: number, offset: number) {
+    try {
+        const [row] = await conn.query<FindEvents[] & RowDataPacket[]>("SELECT e.id, e.date, e.hour, e.modality, e.address, e.inscription_link, e.image, et.title, et.description FROM  events e INNER JOIN events_translations et ON e.id = et.event_id WHERE et.lang = ? AND status = 1 ORDER BY e.date DESC LIMIT ?,? ", [lang, offset, limit]);
+
         return row;
     } catch (error) {
         console.error(error);
