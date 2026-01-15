@@ -14,6 +14,8 @@ export type UpdateArticle = Pick<Article, "title" | "subtitle"> & {
     description: string
 }
 
+export type GetArticles = Pick<Article, "id" | "title" | "subtitle" | "main_image" | "date" | "text">
+
 export type CreateArticle = {
     title_es: string,
     title_en: string,

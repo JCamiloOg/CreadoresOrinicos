@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/config/axios";
-import type { Article, UpdateArticle } from "@/types/blog";
+import type { Article, GetArticles, UpdateArticle } from "@/types/blog";
 
 export async function getAllArticles() {
     return await axiosInstance.get<{ redirect?: string, message: string, articles: Article[] }>("/admin/articles");
@@ -8,6 +8,10 @@ export async function getAllArticles() {
 export async function getArticleByID(id: number, lang?: string) {
     if (lang) return await axiosInstance.get<{ redirect?: string, message: string, articles: Omit<Article, "delete_at">[] }>(`/admin/articles/${id}?lang=${lang}`);
     else return await axiosInstance.get<{ redirect?: string, message: string, articles: Omit<Article, "delete_at">[] }>(`/admin/articles/${id}`);
+}
+
+export async function getArticles(page: string | number) {
+    return await axiosInstance.get<{ message: string, articles: GetArticles[], totalPages: number }>(`/blog?page=${page}`);
 }
 
 export async function createArticle(data: FormData) {
