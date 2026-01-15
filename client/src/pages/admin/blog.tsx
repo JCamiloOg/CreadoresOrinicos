@@ -73,7 +73,7 @@ export default function BlogAdmin() {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 3 });
+    const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
 
 
     // States for info API
