@@ -17,6 +17,7 @@ import { isAxiosError } from "axios";
 import { useTranslation } from "react-i18next";
 import onChangeLanguage from "@/hooks/useChangeLanguage";
 import { useIsMobile } from "@/hooks/use-mobile";
+import usePagination from "@/hooks/usePaginationBlock";
 
 /* Types */
 import type { GetWords } from "@/types/glossary";
@@ -62,6 +63,7 @@ export default function Glossary() {
         '--dur': `${(Math.random() * 1.5 + 2.5).toFixed(2)}}s`,
         '--delay': `${(Math.random() * -3).toFixed(2)}s`,
     } as CSSProperties;
+    const buttonsPagination = usePagination(totalPages, page);
 
 
     const onLoad = useCallback(async () => {
@@ -137,7 +139,7 @@ export default function Glossary() {
                 <div className="grid grid-cols-12 gap-4 mt-20 space-y-10">
 
                     {
-                        words ?
+                        words?.length ?
                             words.map((word, idx) => (
                                 <div className="col-span-12 md:col-span-6" data-aos={isMobile ? "fade" : idx % 2 === 0 ? "fade-down" : "fade-up"}>
                                     <div className=" bg-black/60 shadow-[0px_0px_15px_rgba(0,0,0,0.09)] p-9 h-75 space-y-3 relative overflow-hidden">
@@ -147,7 +149,7 @@ export default function Glossary() {
                                         <div className="fill-violet-500 md:w-20 w-15">
                                             <img src={images[Math.floor(Math.random() * images.length)]} className="glow-gold" alt={word.word} />
                                         </div>
-                                        <h1 className="font-romance text-gold md:text-4xl text-3xl">{word.word}</h1>
+                                        <h1 className="font-times text-gold md:text-4xl text-3xl">{word.word}</h1>
                                         <p className="md:text-lg text-base leading-6 h-30 overflow-y-auto scrollMin text-justify">
                                             {word.description}
                                         </p>
@@ -166,8 +168,8 @@ export default function Glossary() {
                 <div className="flex  justify-center mt-20">
                     <ButtonGroup>
                         <ButtonGroup>
-                            {Array.from({ length: totalPages }).map((_, idx) => (
-                                <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === idx + 1} key={idx} onClick={() => handlePageChange(idx + 1)} size="lg" >{idx + 1}</Button>
+                            {buttonsPagination.map((number, idx) => (
+                                <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === number} key={idx} onClick={() => handlePageChange(number)} size="lg">{number}</Button>
                             ))}
                         </ButtonGroup>
                         <ButtonGroup>

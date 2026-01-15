@@ -1,3 +1,4 @@
+/* Components */
 import WaButton from "@/components/buttons/waButton/waButton";
 import CardEvent from "@/components/card/card.event";
 import Footer from "@/components/footer/footer";
@@ -5,18 +6,25 @@ import Loader from "@/components/loader/loader";
 import NavBar from "@/components/navBar/navBar";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
-import i18n from "@/config/i18n";
+import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import usePagination from "@/hooks/usePaginationBlock";
+
+/* Types */
+import type { GetEvents } from "@/types/events";
+
+/* Hooks */
 import onChangeLanguage from "@/hooks/useChangeLanguage";
 import { usePageLoader } from "@/hooks/usePageLoader";
 import { getEvents } from "@/services/eventsServices";
-import type { GetEvents } from "@/types/events";
-import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isAxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useSearchParams } from "react-router";
 import { toast } from "sonner";
+
+/* Config */
+import i18n from "@/config/i18n";
 
 export default function Events() {
     // States
@@ -33,6 +41,7 @@ export default function Events() {
     // Var
     const lang = i18n.language;
     const page = parseInt(searchParams.get("page") || "1");
+    const buttonsPagination = usePagination(totalPages, page);
 
     const onLoad = useCallback(async () => {
         startLoading();
@@ -88,7 +97,7 @@ export default function Events() {
                     <h1 className="font-romance text-gold text-base text-center md:text-7xl text-4xl pt-40">{t("title")}</h1>
                     <div className="grid grid-cols-12 md:space-y-5 gap-5  mt-20">
                         {
-                            events ?
+                            events?.length ?
                                 events.map((event, idx) => (
                                     <div data-aos="fade" className="lg:col-span-6 col-span-12">
                                         <CardEvent event={event} alt={(idx + 1) % 2 === 0} />
@@ -99,7 +108,6 @@ export default function Events() {
                                     <div className="col-span-12">
                                         <h1 className="font-times text-base text-center md:text-7xl">{t("noEvents")}</h1>
                                     </div>
-
                                 </>
                         }
                     </div>
@@ -108,8 +116,8 @@ export default function Events() {
 
                     <ButtonGroup>
                         <ButtonGroup>
-                            {Array.from({ length: totalPages }).map((_, idx) => (
-                                <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === idx + 1} key={idx} onClick={() => handlePageChange(idx + 1)} size="lg" >{idx + 1}</Button>
+                            {buttonsPagination.map((number, idx) => (
+                                <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === number} key={idx} onClick={() => handlePageChange(number)} size="lg" >{number}</Button>
                             ))}
                         </ButtonGroup>
                         <ButtonGroup>

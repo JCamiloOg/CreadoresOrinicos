@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import WaButton from "@/components/buttons/waButton/waButton";
+import ButtonGlow from "@/components/buttons/button.glow";
 
 /* Hooks */
 import onChangeLanguage from "@/hooks/useChangeLanguage";
@@ -16,14 +18,13 @@ import { isAxiosError } from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router";
+import usePagination from "@/hooks/usePaginationBlock";
 
 /* Types */
 import type { GetArticles } from "@/types/blog";
 
 /* Services */
 import { getArticles } from "@/services/blogServices";
-import WaButton from "@/components/buttons/waButton/waButton";
-import ButtonGlow from "@/components/buttons/button.glow";
 
 export default function Blog() {
     // States
@@ -39,6 +40,7 @@ export default function Blog() {
 
     // Var
     const page = parseInt(searchParams.get("page") || "1");
+    const buttonsPagination = usePagination(totalPages, page);
 
     const onLoad = useCallback(async () => {
         startLoading();
@@ -118,23 +120,21 @@ export default function Blog() {
                 </div>
                 <div className="flex  justify-center mt-20">
                     {
-                        articles?.length && (
+                        <ButtonGroup>
                             <ButtonGroup>
-                                <ButtonGroup>
-                                    {Array.from({ length: totalPages }).map((_, idx) => (
-                                        <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === idx + 1} key={idx} onClick={() => handlePageChange(idx + 1)} size="lg" >{idx + 1}</Button>
-                                    ))}
-                                </ButtonGroup>
-                                <ButtonGroup>
-                                    <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === 1} onClick={() => handlePageChange(page - 1)} size="icon-lg" aria-label="Previous">
-                                        <FontAwesomeIcon icon={faArrowLeft} />
-                                    </Button>
-                                    <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === totalPages} onClick={() => handlePageChange(page + 1)} size="icon-lg" aria-label="Next">
-                                        <FontAwesomeIcon icon={faArrowRight} />
-                                    </Button>
-                                </ButtonGroup>
+                                {buttonsPagination.map((number, idx) => (
+                                    <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === number} key={idx} onClick={() => handlePageChange(number)} size="lg" >{number}</Button>
+                                ))}
                             </ButtonGroup>
-                        )
+                            <ButtonGroup>
+                                <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === 1} onClick={() => handlePageChange(page - 1)} size="icon-lg" aria-label="Previous">
+                                    <FontAwesomeIcon icon={faArrowLeft} />
+                                </Button>
+                                <Button className="bg-[#cba55f] hover:bg-[#80683c] cursor-pointer" disabled={page === totalPages} onClick={() => handlePageChange(page + 1)} size="icon-lg" aria-label="Next">
+                                    <FontAwesomeIcon icon={faArrowRight} />
+                                </Button>
+                            </ButtonGroup>
+                        </ButtonGroup>
                     }
                 </div>
                 <Footer />
