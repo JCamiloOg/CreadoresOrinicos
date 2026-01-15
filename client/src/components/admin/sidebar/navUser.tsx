@@ -25,6 +25,7 @@ import { logout } from "@/services/userServices";
 import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
+import toggleLang from "@/hooks/useToggleLanguage";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -78,7 +79,7 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="cursor-pointer" onClick={() => i18n.changeLanguage(i18n.language == "es" ? "en" : "es")}>
+              <DropdownMenuItem className="cursor-pointer" onClick={toggleLang}>
                 <FontAwesomeIcon icon={faLanguage} />
                 {t("language")} - {i18n.language.toUpperCase()}
               </DropdownMenuItem>
