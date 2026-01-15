@@ -6,7 +6,6 @@ import { Label } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 import type { FieldError, Merge, FieldErrorsImpl } from "react-hook-form";
 import { es, enUS } from "react-day-picker/locale";
-import formatDate from "@/utils/formatDate";
 
 interface Props {
     label: string;
