@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import "./loader.css";
 import { useEffect, useState } from "react";
 interface Props {
@@ -22,12 +21,22 @@ export default function Loader({ isVisible }: Props) {
     if (hidden) return null;
 
     return (
-        <div className={`z-50 w-full h-dvh bg-radial from-[#943829] from-0% to-[#000000] absolute top-2/4 left-2/4 -translate-2/4 flex items-center justify-center  ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-500`}>
+        <div className={`w-full max-h-dvh min-h-dvh bg-[#0e0d11]/50 backdrop-blur-3xl z-100 fixed top-2/4 left-2/4 -translate-2/4 flex items-center justify-center ${isVisible ? "opacity-100" : "opacity-0"} transition-all duration-500`} >
             <div className="loader">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <svg width={100} height={100} viewBox="0 0 100 100">
+                    <defs>
+                        <mask id="clipping">
+                            <polygon points="0,0 100,0 100,100 0,100" fill="black" />
+                            <polygon points="25,25 75,25 50,75" fill="white" />
+                            <polygon points="50,25 75,75 25,75" fill="white" />
+                            <polygon points="35,35 65,35 50,65" fill="white" />
+                            <polygon points="35,35 65,35 50,65" fill="white" />
+                            <polygon points="35,35 65,35 50,65" fill="white" />
+                            <polygon points="35,35 65,35 50,65" fill="white" />
+                        </mask>
+                    </defs>
+                </svg>
+                <div className="box" />
             </div>
         </div>
     );
