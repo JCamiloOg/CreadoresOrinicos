@@ -76,7 +76,7 @@ export default function Services() {
             <WaButton />
             <Loader isVisible={loading || loadingLanguaje} />
 
-            <section className="text-center min-h-dvh md:pt-10 bg-black/50 w-full space-y-20">
+            <section className="text-center min-h-dvh md:pt-10 bg-black/50 w-full space-y-20 px-4">
                 <h1 className=" font-romance text-base text-center md:text-7xl text-4xl pt-30">{t("title")}</h1>
                 <p style={style} className="text-center font-times glow-gold  float  md:text-4xl text-2xl w-full md:px-0 px-4">{t("p-1")}</p>
                 <p className="text-center font-times glow-gold  float  mb-10 md:text-4xl text-2xl w-full md:px-0 px-4">{t("p-2")}</p>
@@ -128,7 +128,7 @@ export default function Services() {
                         <h2 className="font-romance md:text-6xl text-3xl text-gold">Creadores Oniricos</h2>
                         <h2 className="font-times md:text-6xl text-3xl text-gold">{t("itsForYou")}:</h2>
 
-                        <ul className="text-base space-y-5  md:text-2xl text-sm mt-10 ">
+                        <ul className="text-base space-y-5  md:text-2xl text-sm mt-10 font-liberation">
                             <li>{t("point-1")}</li>
                             <li>{t("point-2")}</li>
                             <li>{t("point-3")}</li>

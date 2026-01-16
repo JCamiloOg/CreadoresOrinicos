@@ -69,12 +69,12 @@ export default function Index() {
                 </article>
 
                 <article className="grid grid-cols-12 gap-4 mt-20">
-                    <div className="md:col-span-4 justify-center col-span-12">
+                    <div data-aos="fade" className="md:col-span-4 justify-center col-span-12">
                         <center>
                             <CardImage title="Omar Ramírez" image={omar} />
                         </center>
                     </div>
-                    <div data-aos="fade" className="md:col-span-8 col-span-12 text-base text-justify  w-full md:text-lg lg:text-2xl   border-2 border-[#f2cc8a] bg-black/50 p-10 rounded-3xl flex flex-col items-center justify-center">
+                    <div data-aos="fade" className="md:col-span-8 col-span-12 text-base font-liberation text-justify  w-full md:text-lg lg:text-2xl   border-2 border-[#f2cc8a] bg-black/50 p-10 rounded-3xl flex flex-col items-center justify-center">
                         <div>
                             {t("bioOmar")}
                         </div>
@@ -87,19 +87,19 @@ export default function Index() {
                         <h2 className="md:text-6xl text-5xl text-gold font-romance">{t("philosophy.title")}</h2>
                         <div className="flex  items-center">
                             <img src={brainGold} className="w-30" alt="" />
-                            <p className="text-base md:text-xl">{t("philosophy.point-1")}</p>
+                            <p className="text-base font-liberation md:text-xl">{t("philosophy.point-1")}</p>
                         </div>
                         <div className="flex  items-center">
                             <img src={bookMagic} className="w-30" alt="" />
-                            <p className="text-base md:text-xl">{t("philosophy.point-2")}</p>
+                            <p className="text-base font-liberation md:text-xl">{t("philosophy.point-2")}</p>
                         </div>
                         <div className="flex  items-center">
                             <img src={celestialIcons} className="w-30" alt="" />
-                            <p className="text-base md:text-xl">{t("philosophy.point-3")} </p>
+                            <p className="text-base font-liberation md:text-xl">{t("philosophy.point-3")} </p>
                         </div>
                         <div className="flex  items-center">
                             <img src={goldFlower} className="w-20 ms-5" alt="" />
-                            <p className="text-base md:text-xl ms-5">{t("philosophy.point-4")}</p>
+                            <p className="text-base font-liberation md:text-xl ms-5">{t("philosophy.point-4")}</p>
                         </div>
                     </div>
                     <div className="md:block hidden col-span-2 relative h-full">
@@ -108,16 +108,16 @@ export default function Index() {
                     <div data-aos="fade-down" className="md:col-span-5 col-span-12 flex items-end justify-end">
                         <div>
                             <h2 className="md:text-6xl text-5xl text-gold text-center mb-5 font-romance">{t("methodology.title")}</h2>
-                            <p className="text-base text-xl text-center">{t("methodology.p-1")}</p>
+                            <p className="text-base text-xl text-center font-liberation">{t("methodology.p-1")}</p>
                             <br />
-                            <p className="text-base text-xl text-center">{t("methodology.p-2")}</p>
+                            <p className="text-base text-xl text-center font-liberation">{t("methodology.p-2")}</p>
                         </div>
                     </div>
                 </article>
 
                 <article data-aos="fade" className="relative  mt-20">
                     <img src={eyeGoldIcon} className="md:block hidden absolute w-100 z-[-1] bottom-[-150px] opacity-40 left-1/2 -translate-x-1/2 " alt="" />
-                    <div className="border-2 border-[#f2cc8a] bg-black/50 md:p-15 p-10 rounded-2xl  md:text-4xl text-center text-base">
+                    <div className="border-2 font-liberation border-[#f2cc8a] bg-black/50 md:p-15 p-10 rounded-2xl  md:text-4xl text-center text-base">
                         {t("purpose")}
                     </div>
                 </article>

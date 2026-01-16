@@ -67,7 +67,7 @@ export default function AboutUs() {
             <section className="bg-black/50  md:px-20 px-5">
                 <h1 data-aos="fade" className=" font-romance text-gold text-center lg:text-7xl text-4xl  pt-40">Creadores Oníricos</h1>
                 <div data-aos="fade-up" className="grid grid-cols-12 gap-5">
-                    <div className="lg:col-span-6 col-span-12 text-justify text-base  lg:text-2xl mt-10">
+                    <div className="lg:col-span-6 col-span-12 text-justify text-base font-liberation  lg:text-2xl mt-10">
                         <p>
                             {t("creadoresOniricos.p-1")}
                         </p>
@@ -92,7 +92,7 @@ export default function AboutUs() {
                     </div>
                     <div data-aos="fade-down" className="mt-10 md:mt-0 ">
                         <h1 className="text-gold lg:text-8xl text-4xl font-romance mb-10">Omar Ramírez</h1>
-                        <div className="space-y-5 text-justify md:w-150 w-full text-base md:text-xl">
+                        <div className="space-y-5 font-liberation text-justify md:w-150 w-full text-base md:text-xl">
                             <p>
                                 {t("bioOmar.p-1")}
                             </p>
@@ -116,9 +116,9 @@ export default function AboutUs() {
 
                 <article className="mt-20 text-base">
                     <h1 data-aos="fade" className=" font-romance text-gold  lg:text-7xl text-4xl">{t("philosophy.title")}</h1>
-                    <p data-aos="fade" className="text-justify md:text-2xl mt-10 md:w-3/4">{t("philosophy.p-1")}</p>
+                    <p data-aos="fade" className="text-justify font-liberation md:text-2xl mt-10 md:w-3/4">{t("philosophy.p-1")}</p>
                     <div className="grid grid-cols-12 gap-4">
-                        <div data-aos="fade-up" className="col-span-12 md:col-span-8 mt-8  p-5 bg-black/50 rounded-2xl border-2 border-[#f2cc8a]">
+                        <div data-aos="fade-up" className="col-span-12 md:col-span-8 mt-8 font-liberation md:text-xl  p-5 bg-black/50 rounded-2xl border-2 border-[#f2cc8a]">
                             <h5 className="text-2xl text-gold font-times">{t("philosophy.points.subtitle")}:</h5>
                             <ul className="space-y-5 mt-4 ps-5 text-justify">
                                 <li>{t("philosophy.points.1")}</li>
@@ -128,7 +128,7 @@ export default function AboutUs() {
                                 <li>{t("philosophy.points.5")}</li>
                             </ul>
                         </div>
-                        <div data-aos="fade-down" className="col-span-12 mt-10 md:mt-0 md:col-span-4 flex flex-col justify-center  text-justify md:text-xl">
+                        <div data-aos="fade-down" className="col-span-12 mt-10 md:mt-0 md:col-span-4 flex flex-col justify-center  text-justify md:text-xl font-liberation">
                             {t("philosophy.p-2")}
                         </div>
                     </div>

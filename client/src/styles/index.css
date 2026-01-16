@@ -16,6 +16,8 @@
 @theme {
   --font-romance: "RomanceFatal", "serif";
   --font-times: "Times New Roman", "serif";
+  --font-liberation: "Liberation Serif", "serif";
+  --radius: 0.625rem;
   --color-base: #fdf4cf;
   --color-baseYellow: #f2d560;
 }

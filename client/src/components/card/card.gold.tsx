@@ -27,7 +27,7 @@ export default function CardGold({ title, text, image, ...rest }: Props) {
             <div className="w-full flex flex-col items-center text-white md:px-6 z-2">
                 <h5 className="text-gold font-times md:text-4xl text-2xl mt-15 glow-gold">{title}</h5>
                 <img src={image} className="md:w-40  w-30 glow-gold" alt="" />
-                <p className={`text-center  md:text-xl ${breakPoint ? "px-10 pb-13" : "p-6"}  md:px-0 text-sm w-80  `}>{text}</p>
+                <p className={`text-center  md:text-xl ${breakPoint ? "px-10 pb-13" : "p-6"}  md:px-0 text-sm w-80 font-liberation  `}>{text}</p>
             </div>
         </div >
     );

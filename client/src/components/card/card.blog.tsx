@@ -46,7 +46,7 @@ export default function CardArticle({ article, idx, hasNext }: Props) {
 
                     <div className="separator"></div>
 
-                    <p className="md:h-[250px] h-[200px] overflow-y-auto scrollMin pe-2">
+                    <p className="md:h-[250px] h-[200px] overflow-y-auto scrollMin pe-2 font-liberation text-xl!">
                         {article.text}
 
                     </p>

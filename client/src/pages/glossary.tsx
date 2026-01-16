@@ -123,7 +123,7 @@ export default function Glossary() {
             <div className="bg-black/50 h-dvh">
                 <h1 className="font-romance text-gold text-base text-center md:text-7xl text-4xl pt-40">{t("title")}</h1>
                 <div className="max-w-7xl mx-auto px-4 grid grid-cols-12 mt-10">
-                    <div className="col-span-12 md:col-span-6 md:text-3xl text-base text-justify flex flex-col justify-center items-center">
+                    <div className="col-span-12 md:col-span-6 md:text-3xl text-base text-justify flex flex-col justify-center items-center font-liberation">
                         <p>
                             {t("paragraph")}
 
@@ -150,7 +150,7 @@ export default function Glossary() {
                                             <img src={images[Math.floor(Math.random() * images.length)]} className="glow-gold" alt={word.word} />
                                         </div>
                                         <h1 className="font-times text-gold md:text-4xl text-3xl">{word.word}</h1>
-                                        <p className="md:text-lg text-base leading-6 h-30 overflow-y-auto scrollMin text-justify">
+                                        <p className="md:text-xl text-lg text-base leading-6 h-30 overflow-y-auto scrollMin text-justify font-liberation">
                                             {word.description}
                                         </p>
                                     </div>

@@ -82,7 +82,7 @@ export default function Service() {
                         {t(serviceInfo.title).toUpperCase()}
                     </h1>
                     <div data-aos="fade-up" className="grid grid-cols-12 md:gap-10 md:mt-10">
-                        <div className="md:col-span-8 col-span-12 space-y-6 md:text-2xl text-sm  p-5 text-base text-justify flex flex-col justify-center">
+                        <div className="md:col-span-8 col-span-12 space-y-6 md:text-2xl text-sm font-liberation p-5 text-base text-justify flex flex-col justify-center">
                             <p>
                                 {t(serviceInfo.description)}
                             </p>
@@ -106,7 +106,7 @@ export default function Service() {
                         </div>
                         <div data-aos="fade-up" className="md:col-span-8 col-span-12 text-justify  flex flex-col justify-center ">
                             <h5 className="text-gold font-times text-4xl">{t("differential")}: </h5>
-                            <p className="md:text-2xl text-lg text-base mt-5">{t(serviceInfo.differential)}</p>
+                            <p className="md:text-2xl text-lg text-base mt-5 font-liberation">{t(serviceInfo.differential)}</p>
                         </div>
                     </div>
                 </div>

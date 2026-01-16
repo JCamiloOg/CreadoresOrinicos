@@ -26,7 +26,7 @@ export default function NavBar() {
         setOpen(false);
     }, [t]);
 
-    const baseClass = "rounded-b text-base";
+    const baseClass = "rounded-b text-base font-liberation";
     const activeClass = "border-b-[3px] border-[#cba55f]";
     const inactiveClass = "hover:border-b-[3px] hover:border-[#cba55f]";
 
