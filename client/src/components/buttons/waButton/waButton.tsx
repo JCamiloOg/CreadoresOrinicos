@@ -7,7 +7,7 @@ export default function WaButton() {
         window.open("https://wa.link/wtqkic");
     };
     return (
-        <button onClick={onClick} className="Btn fixed z-48 bottom-7 right-7">
+        <button onClick={onClick} className="Btn fixed z-48 bottom-7 right-7 float">
             <div className="sign">
                 <svg className="socialSvg whatsappSvg" viewBox="0 0 16 16">
                     <path
@@ -16,7 +16,7 @@ export default function WaButton() {
                 </svg>
             </div>
 
-            <div className="text">{lng === "es" ? "Contáctanos" : "Contact us"}</div>
+            <div className="text font-liberation">{lng === "es" ? "Contáctanos" : "Contact us"}</div>
         </button>
     );
 }
