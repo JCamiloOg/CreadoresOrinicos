@@ -15,7 +15,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket, faGear, faGears, faLanguage } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +25,7 @@ import { isAxiosError } from "axios";
 import { toast } from "sonner";
 import { useNavigate } from "react-router";
 import toggleLang from "@/hooks/useToggleLanguage";
+import { useSidebar } from "@/hooks/useSidebar";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
