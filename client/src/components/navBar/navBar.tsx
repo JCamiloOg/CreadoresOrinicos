@@ -103,7 +103,7 @@ export default function NavBar() {
             {/* Mobile */}
             <div ref={mobileNavRef} className={` transition-all duration-500 ease-in-out ${open ? "h-[400px] opacity-100 pointer-events-auto" : "h-0 opacity-0 pointer-events-none"} md:hidden `}>
                 <div id="mobile-nav"
-                    className={`${open ? "flex" : "hidden"} pt-5 md:hidden mx-auto w-full flex-col items-center gap-4 rounded-b cursor-pointer  `}>
+                    className={`${open ? "flex" : "hidden"} pt-5 md:hidden mx-auto w-full flex-col items-center gap-4 rounded-b-lg cursor-pointer  `}>
                     <NavLink to={"/"} className={({ isActive }) => `${baseClassMobile} ${isActive ? activeClassMobile : inactiveClassMobile}`}>{t("navBar.home")}</NavLink>
                     <NavLink to={"/blog"} className={({ isActive }) => `${baseClassMobile} ${isActive ? activeClassMobile : inactiveClassMobile}`}>{t("navBar.blog")}</NavLink>
                     <NavLink to={"/events"} className={({ isActive }) => `${baseClassMobile} ${isActive ? activeClassMobile : inactiveClassMobile}`}>{t("navBar.events")}</NavLink>
