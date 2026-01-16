@@ -1,6 +1,6 @@
 /* Components */
 import { Button } from "@/components/ui/button";
-import { faArrowsUpDown, faChevronDown, faEllipsis, faFilePen, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faEllipsis, faFilePen, faSearch, faUpDown } from "@fortawesome/free-solid-svg-icons";
 import { faEye, faEyeSlash, faImage, faPenToSquare } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge } from "@/components/ui/badge";
@@ -99,7 +99,7 @@ export default function EventsAdmin() {
                 return (
                     <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                         {t("table.title")}
-                        <FontAwesomeIcon icon={faArrowsUpDown} />
+                        <FontAwesomeIcon icon={faUpDown} />
                     </Button>
                 );
             },
@@ -107,7 +107,13 @@ export default function EventsAdmin() {
         },
         {
             accessorKey: "modality",
-            header: () => <div className="text-center">{t("table.modality")}</div>,
+            header: ({ column }) => <div className="text-center"><Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                {t("table.modality")}
+                <FontAwesomeIcon icon={faUpDown} />
+            </Button>
+            </div >,
             cell: ({ row }) => {
                 const modality = row.getValue("modality") === "Virtual" ? t("table.virtual") : t("table.InPerson");
                 return <div className="text-center font-medium">{modality}</div>;
@@ -115,7 +121,13 @@ export default function EventsAdmin() {
         },
         {
             accessorKey: "date",
-            header: () => <div className="text-center">{t("table.date")}</div>,
+            header: ({ column }) => <div className="text-center"><Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                {t("table.date")}
+                <FontAwesomeIcon icon={faUpDown} />
+            </Button>
+            </div >,
             cell: ({ row }) => {
                 const date = new Intl.DateTimeFormat(i18n.language, {
                     day: "2-digit",
@@ -139,7 +151,13 @@ export default function EventsAdmin() {
         },
         {
             accessorKey: "status",
-            header: () => <div className="text-center">{t("table.status")}</div>,
+            header: ({ column }) => <div className="text-center"><Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                {t("table.status")}
+                <FontAwesomeIcon icon={faUpDown} />
+            </Button>
+            </div>,
             cell: ({ row }) => {
                 const status = row.getValue("status");
                 if (status == 0) return <div className="flex justify-center w-full"><div className="bg-red-500 rounded-2xl p-1 text-right font-bold w-fit  text-white ">{t("table.status0")}</div></div>;
@@ -425,17 +443,19 @@ export default function EventsAdmin() {
     const modalityU = formUpdate.watch("modality");
     useEffect(() => {
         formUpdate.trigger("address");
+        formUpdate.trigger("inscription_link");
     }, [modalityU, formUpdate]);
 
     const modalityC = formCreate.watch("modality");
     useEffect(() => {
         formCreate.trigger("address");
+        formCreate.trigger("inscription_link");
     }, [modalityC, formCreate]);
 
     return (
         <>
             <Loader isVisible={loading || loadingLanguage} />
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={false}>
                 <AppSidebar />
                 <SidebarInset>
                     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -611,7 +631,7 @@ export default function EventsAdmin() {
                                                                 <header className="mb-3" >
                                                                     <div className="focus:outline-none focus-visible:ring-2 block" >
                                                                         <div className="flex justify-between" onClick={() => onGetDataByID(event.id, setDialogViewMore)}>
-                                                                            <h3 className="text-2xl text-white font-romance leading-snug">{event.title}</h3>
+                                                                            <h3 className="text-2xl text-white font-times leading-snug">{event.title}</h3>
                                                                             <Badge className={event.status == 0 ? "bg-red-500" : "bg-green-500"}>
                                                                                 {event.status == 0 ? t("table.status0") : t("table.status1")}
                                                                             </Badge>
@@ -777,6 +797,10 @@ export default function EventsAdmin() {
                             </div>
                             <div className="md:col-span-6 col-span-12">
                                 <InputGroupPer id="inscription_link" label={t("dialogs.create.inscription_link")} error={formCreate.formState.errors.inscription_link?.message} {...formCreate.register("inscription_link", {
+                                    validate: (value) => {
+                                        if (value.length <= 0 && formCreate.getValues("modality") === "Virtual") return t("errors.requiredInscriptionLink");
+
+                                    },
                                     minLength: {
                                         value: 5,
                                         message: t("errors.minLengthInscription_link")
@@ -829,14 +853,14 @@ export default function EventsAdmin() {
                     <DialogHeader>
                         <DialogTitle className="">{t("dialogs.viewMore.titleDialog")}</DialogTitle>
                     </DialogHeader>
-                    <div className="grid grid-cols-12 space-y-5 justify-center max-h-[650px] overflow-y-auto scrollMin px-2" >
+                    <div className="grid grid-cols-12 space-y-5 justify-center max-h-[550px] overflow-y-auto scrollMin px-2" >
                         <div className="col-span-12">
                             <h3 className="text-lg  font-bold text-center">{t("dialogs.viewMore.title")}</h3>
                             <p className="text-center font-medium">
                                 {dataByID?.title}
                             </p>
                         </div>
-                        <div className="md:col-span-6 col-span-12 text-center">
+                        <div className="md:col-span-6 col-span-12 ">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.date")}</h3>
                             <p>
                                 {new Intl.DateTimeFormat(i18n.language, {
@@ -846,7 +870,7 @@ export default function EventsAdmin() {
                                 }).format(new Date(dataByID?.date || "01/01/2000"))}
                             </p>
                         </div>
-                        <div className="md:col-span-6 col-span-12 text-center">
+                        <div className="md:col-span-6 col-span-12 ">
                             <h3 className="text-lg font-bold">{ }{t("dialogs.viewMore.date")}</h3>
                             <p>
                                 {new Intl.DateTimeFormat(i18n.language, {
@@ -856,29 +880,30 @@ export default function EventsAdmin() {
                                 }).format(new Date(`2006-06-02T${dataByID?.hour || "00:00:00"}`))}
                             </p>
                         </div>
-                        <div className="md:col-span-6 col-span-12 text-center  ">
+                        <div className="md:col-span-6 col-span-12   ">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.address")}</h3>
                             <p className="max-h-40 overflow-auto">
                                 {dataByID?.address || t("dialogs.viewMore.noApply")}
                             </p>
                         </div>
-                        <div className="md:col-span-6 col-span-12 text-center ">
+                        <div className="md:col-span-6 col-span-12  ">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.inscription_link")}</h3>
-                            <a className="text-blue-500 hover:underline hover:text-blue-500/50" target="_blank" href={dataByID?.inscription_link || "#"}>
-                                {dataByID?.inscription_link || t("dialogs.viewMore.noApply")}
-                            </a>
+                            {
+                                dataByID?.inscription_link ?
+                                    <a className="text-blue-500 hover:underline hover:text-blue-500/50" target="_blank" href={dataByID.inscription_link}>
+                                        {dataByID.inscription_link}
+                                    </a>
+                                    :
+                                    <p className="max-h-40 overflow-auto">{t("dialogs.viewMore.noApply")}</p>
+                            }
                         </div>
                         <div className="col-span-12">
-                            <h3 className="text-lg font-bold text-center">{t("dialogs.viewMore.status")}</h3>
+                            <h3 className="text-lg font-bold ">{t("dialogs.viewMore.status")}</h3>
                             {
                                 dataByID?.status == 0 ?
-                                    <div className="flex items-center justify-center">
-                                        <Badge className="text-center" variant="destructive">{t("table.status0")}</Badge>
-                                    </div>
+                                    <Badge className="text-center" variant="destructive">{t("table.status0")}</Badge>
                                     :
-                                    <div className="flex items-center justify-center">
-                                        <Badge variant="secondary" className="bg-green-500">{t("table.status1")}</Badge>
-                                    </div>
+                                    <Badge variant="secondary" className="bg-green-500">{t("table.status1")}</Badge>
                             }
                         </div>
                         <div className="col-span-12 text-center ">
@@ -956,6 +981,9 @@ export default function EventsAdmin() {
                             </div>
                             <div className="col-span-12">
                                 <InputGroupPer id="inscription_link" label={t("dialogs.update.inscription_link")} error={formUpdate.formState.errors.inscription_link?.message} {...formUpdate.register("inscription_link", {
+                                    validate: (value) => {
+                                        if (value.length <= 0 && formUpdate.getValues("modality") === "Virtual") return t("errors.requiredInscriptionLink");
+                                    },
                                     minLength: {
                                         value: 5,
                                         message: t("errors.minLengthInscription_link")

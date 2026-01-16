@@ -72,22 +72,21 @@ export default function UsersAdmin() {
     const columns: ColumnDef<User>[] = [
         {
             accessorKey: "username",
-            header: ({ column }) => {
-                return (
-                    <Button
-                        variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
-                        {t("table.username")}
-                        <FontAwesomeIcon icon={faUpDown} />
-                    </Button>
+            header: () => {
+                return (<div className="">{t("table.username")}</div>
                 );
             },
             cell: ({ row }) => <div className="font-medium">{row.getValue("username")}</div>,
         },
         {
             accessorKey: "status",
-            header: () => <div className="text-center">{t("table.status")}</div>,
+            header: ({ column }) => <div className="text-center"><Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                {t("table.status")}
+                <FontAwesomeIcon icon={faUpDown} />
+            </Button>
+            </div >,
             cell: ({ row }) => {
                 const status = row.getValue("status");
 
@@ -294,7 +293,7 @@ export default function UsersAdmin() {
     return (
         <>
             <Loader isVisible={loading || loadingLanguage} />
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={false}>
                 <AppSidebar />
                 <SidebarInset>
                     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -325,7 +324,7 @@ export default function UsersAdmin() {
                             <Button onClick={() => setDialogCreate(true)} className="cursor-pointer mb-5">{t("table.add")}</Button>
                             <div className="block md:hidden">
                                 <InputGroup>
-                                    <InputGroupInput type="text" placeholder="Buscar por título..." {...search.register("search", {
+                                    <InputGroupInput className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none" type="number" placeholder="Buscar por usuario..." {...search.register("search", {
                                         onChange: (e) => onSearch(e.target.value)
                                     })} />
                                     <InputGroupAddon align="inline-end">
@@ -339,12 +338,14 @@ export default function UsersAdmin() {
                                 <div>
                                     <div className="flex items-center py-4">
                                         <Input
+                                            type="number"
+
                                             placeholder={t("table.search")}
-                                            value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+                                            value={(table.getColumn("username")?.getFilterValue() as string) ?? ""}
                                             onChange={(event) => {
-                                                table.getColumn("title")?.setFilterValue(event.target.value);
+                                                table.getColumn("username")?.setFilterValue(event.target.value);
                                             }}
-                                            className="max-w-sm"
+                                            className="max-w-sm [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                                         />
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
@@ -465,7 +466,7 @@ export default function UsersAdmin() {
                                                                 <header className="mb-3">
                                                                     <div className="focus:outline-none focus-visible:ring-2 block">
                                                                         <div className="flex justify-between">
-                                                                            <h3 className="text-2xl text-white font-romance leading-snug">user.us</h3>
+                                                                            <h3 className="text-2xl text-white font-romance leading-snug">{user.username}</h3>
                                                                             <Badge className={user.status == 0 ? "bg-red-500" : "bg-green-500"}>
                                                                                 {user.status == 0 ? t("table.status0") : t("table.status1")}
                                                                             </Badge>
@@ -473,15 +474,12 @@ export default function UsersAdmin() {
                                                                     </div>
                                                                 </header>
                                                                 <div className="mb-8 max-h-40 overflow-auto">
-                                                                    {/* <p>
-                                                                        {word.description}
-                                                                    </p> */}
                                                                 </div>
                                                             </div>
-                                                            <button className="font-semibold mb-3 text-sm inline-flex items-center justify-center px-3 py-1.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out bg-indigo-500 focus:outline-none focus-visible:ring-2 hover:bg-indigo-600 text-white" onClick={() => onGetDataByID(user.id, setDialogUpdate, formUpdate.reset, data => ({ username: data.username }))} >
+                                                            <button className="font-semibold mb-3 me-5 text-sm inline-flex items-center justify-center px-3 py-1.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out bg-indigo-500 focus:outline-none focus-visible:ring-2 hover:bg-indigo-600 text-white" onClick={() => onGetDataByID(user.id, setDialogUpdate, formUpdate.reset, data => ({ username: data.username }))} >
                                                                 {t("table.edit")}
                                                             </button>
-                                                            <button className="font-semibold mb-3 text-sm inline-flex items-center justify-center px-3 py-1.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out bg-indigo-50 focus:outline-none focus-visible:ring-2 hover:bg-indigo-100 text-indigo-500" onClick={() => onChangeStatus(user.id, user.status == 0 ? 1 : 0)}>
+                                                            <button className="font-semibold cursor-pointer mb-3 text-sm inline-flex items-center justify-center px-3 py-1.5 border border-transparent rounded leading-5 shadow-sm transition duration-150 ease-in-out bg-indigo-50 focus:outline-none focus-visible:ring-2 hover:bg-indigo-100 text-indigo-500" onClick={() => onChangeStatus(user.id, user.status == 0 ? 1 : 0)}>
                                                                 {t("table.changeStatus")}
                                                             </button>
 

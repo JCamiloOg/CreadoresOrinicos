@@ -89,8 +89,7 @@ export default function BlogAdmin() {
                 return (
                     <Button
                         variant="ghost"
-                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                    >
+                        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
                         {t("table.title")}
                         <FontAwesomeIcon icon={faUpDown} />
                     </Button>
@@ -107,7 +106,15 @@ export default function BlogAdmin() {
         },
         {
             accessorKey: "date",
-            header: () => <div className="text-center">{t("table.date")}</div>,
+            header: ({ column }) =>
+                <div className="text-center"><Button
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                    {t("table.date")}
+                    <FontAwesomeIcon icon={faUpDown} />
+                </Button>
+                </div >
+            ,
             cell: ({ row }) => {
                 const date = new Intl.DateTimeFormat(i18n.language, {
                     day: "2-digit",
@@ -120,7 +127,14 @@ export default function BlogAdmin() {
         },
         {
             accessorKey: "status",
-            header: () => <div className="text-center">{t("table.status")}</div>,
+            header: ({ column }) => <div className="text-center"><Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                {t("table.status")}
+                <FontAwesomeIcon icon={faUpDown} />
+            </Button>
+            </div >
+            ,
             cell: ({ row }) => {
                 const status = row.getValue("status");
 
@@ -390,7 +404,7 @@ export default function BlogAdmin() {
     return (
         <>
             <Loader isVisible={loading || loadingLanguage} />
-            <SidebarProvider className="dark">
+            <SidebarProvider defaultOpen={false} className="dark">
                 <AppSidebar />
                 <SidebarInset>
                     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -553,7 +567,7 @@ export default function BlogAdmin() {
                                             filterData.map((article) => (
                                                 <div className="max-w-xs mx-auto mb-5">
                                                     <div className="flex flex-col h-full bg-white shadow-lg rounded-lg overflow-hidden">
-                                                        <div className="block focus:outline-none focus-visible:ring-2" >
+                                                        <div className="block focus:outline-none focus-visible:ring-2" onClick={() => onGetDataByid(article.id, setDialogViewMore)}>
                                                             <figure className="relative h-0 pb-[56.25%] overflow-hidden">
                                                                 <img className="absolute inset-0 w-full h-full object-cover transform hover:scale-105 transition duration-700 ease-out" src={`${API_URL_IMAGES}/articles/${article.main_image}`} width="320" height="180" alt="Course" />
                                                             </figure>
@@ -562,13 +576,13 @@ export default function BlogAdmin() {
                                                             <div className="grow">
                                                                 <header className="mb-3">
                                                                     <div className="focus:outline-none focus-visible:ring-2 block" >
-                                                                        <div className="flex justify-between">
-                                                                            <h3 className="text-2xl text-white font-romance leading-snug">{article.title}</h3>
+                                                                        <div className="flex justify-between" onClick={() => onGetDataByid(article.id, setDialogViewMore)}>
+                                                                            <h3 className="text-2xl text-white font-times leading-snug">{article.title}</h3>
                                                                             <Badge className={article.status == 0 ? "bg-red-500" : "bg-green-500"}>
                                                                                 {article.status == 0 ? t("table.status0") : t("table.status1")}
                                                                             </Badge>
                                                                         </div>
-                                                                        <h5 className="text-lg text-gray-400">{article.subtitle}</h5>
+                                                                        <h5 className="text-lg font-liberation text-gray-400">{article.subtitle}</h5>
                                                                         <p className="mt-3 text-sm text-gray-400">{t("table.date")}: {Intl.DateTimeFormat(i18n.language, { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(article.date))}</p>
                                                                     </div>
                                                                 </header>
@@ -610,7 +624,7 @@ export default function BlogAdmin() {
                     </DialogHeader>
                     <form onSubmit={formCreate.handleSubmit(onSubmitCreate)} >
                         <div className="grid grid-cols-12 space-y-5 gap-4 max-h-[550px] overflow-auto" >
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <InputGroupPer
                                     id="title_es"
                                     label={t("dialogs.create.title_es")}
@@ -623,7 +637,7 @@ export default function BlogAdmin() {
                                         },
                                     })} />
                             </div>
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <InputGroupPer
                                     id="title_en"
                                     label={t("dialogs.create.title_en")}
@@ -636,7 +650,7 @@ export default function BlogAdmin() {
                                         },
                                     })} />
                             </div>
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <InputGroupPer
                                     id="subtitle_es"
                                     label={t("dialogs.create.subtitle_es")}
@@ -649,7 +663,7 @@ export default function BlogAdmin() {
                                         },
                                     })} />
                             </div>
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <InputGroupPer
                                     id="subtitle_en"
                                     label={t("dialogs.create.subtitle_en")}
@@ -662,7 +676,7 @@ export default function BlogAdmin() {
                                         },
                                     })} />
                             </div>
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <TextAreaAuto
                                     id="description_es"
                                     label={t("dialogs.create.description_es")}
@@ -679,7 +693,7 @@ export default function BlogAdmin() {
                                         }
                                     })} />
                             </div>
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <TextAreaAuto
                                     id="description_en"
                                     label={t("dialogs.create.description_en")}
@@ -727,20 +741,20 @@ export default function BlogAdmin() {
                     <DialogHeader>
                         <DialogTitle>{t("dialogs.viewMore.titleDialog")}</DialogTitle>
                     </DialogHeader>
-                    <div className="grid grid-cols-12 space-y-5">
-                        <div className="col-span-6">
+                    <div className="grid grid-cols-12 space-y-5 max-h-[550px] overflow-auto">
+                        <div className="col-span-12 md:col-span-6">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.title")}</h3>
                             <p>
                                 {dataByID?.title}
                             </p>
                         </div>
-                        <div className="col-span-6">
+                        <div className="col-span-12 md:col-span-6">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.subtitle")}</h3>
                             <p>
                                 {dataByID?.subtitle}
                             </p>
                         </div>
-                        <div className="col-span-6">
+                        <div className="col-span-12 md:col-span-6">
                             <h3 className="text-lg font-bold">{ }{t("dialogs.viewMore.date")}</h3>
                             <p>
                                 {new Intl.DateTimeFormat(i18n.language, {
@@ -750,7 +764,7 @@ export default function BlogAdmin() {
                                 }).format(new Date(dataByID?.date || "01/01/2000"))}
                             </p>
                         </div>
-                        <div className="col-span-6">
+                        <div className="col-span-12 md:col-span-6">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.status")}</h3>
                             {
                                 dataByID?.status == 0 ?
@@ -780,8 +794,8 @@ export default function BlogAdmin() {
                     </DialogHeader>
                     <form onSubmit={formUpdate.handleSubmit(onSubmitUpdate)} >
 
-                        <div className="grid grid-cols-12 space-y-5 gap-4">
-                            <div className="col-span-6">
+                        <div className="grid grid-cols-12 space-y-5 md:gap-4 max-h-[550px] overflow-auto">
+                            <div className="col-span-12 md:col-span-6">
                                 <InputGroupPer
                                     defaultValue={dataByID?.title || ""}
                                     error={formUpdate.formState.errors["title"]?.message}
@@ -800,7 +814,7 @@ export default function BlogAdmin() {
                                         }
                                     })} />
                             </div>
-                            <div className="col-span-6">
+                            <div className="col-span-12 md:col-span-6">
                                 <InputGroupPer
                                     defaultValue={dataByID?.subtitle || ""}
                                     error={formUpdate.formState.errors["subtitle"]?.message}

@@ -89,18 +89,26 @@ export default function GlossaryAdmin() {
                     </Button>
                 );
             },
-            cell: ({ row }) => <div className="font-medium">{row.getValue("word")}</div>,
+            cell: ({ row }) => <div className="font-medium ">{row.getValue("word")}</div>,
         },
         {
             accessorKey: "description",
-            header: () => <div className="text-center">{t("table.definition")}</div>,
+            header: () => <div className="text-center flex flex-col justify-center items-center ">{t("table.definition")}</div>,
             cell: ({ row }) => {
-                return <div className="text-center font-medium">{row.getValue("description")}</div>;
+                return <div className="flex flex-col justify-center items-center   font-medium">
+                    <p className="wrap-break-word whitespace-normal text-center lg:w-3/4">{row.getValue("description")}</p>
+                </div>;
             },
         },
         {
             accessorKey: "status",
-            header: () => <div className="text-center">{t("table.status")}</div>,
+            header: ({ column }) => <div className="text-center"><Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+                {t("table.status")}
+                <FontAwesomeIcon icon={faUpDown} />
+            </Button>
+            </div >,
             cell: ({ row }) => {
                 const status = row.getValue("status");
                 if (status == 0) {
@@ -313,7 +321,7 @@ export default function GlossaryAdmin() {
     return (
         <>
             <Loader isVisible={loading || loadingLanguage} />
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={false}>
                 <AppSidebar />
                 <SidebarInset>
                     <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
@@ -416,7 +424,7 @@ export default function GlossaryAdmin() {
                                                 {
                                                     table.getRowModel().rows?.length ? (
                                                         table.getRowModel().rows.map((row) => (
-                                                            <TableRow className="text-white">
+                                                            <TableRow className="text-white ">
                                                                 {
                                                                     row.getVisibleCells().map((cell) => (
                                                                         <TableCell key={cell.id}>
@@ -480,7 +488,7 @@ export default function GlossaryAdmin() {
                                                                 <header className="mb-3">
                                                                     <div className="focus:outline-none focus-visible:ring-2 block">
                                                                         <div className="flex justify-between">
-                                                                            <h3 className="text-2xl text-white font-romance leading-snug">{word.word}</h3>
+                                                                            <h3 className="text-2xl text-white font-times leading-snug">{word.word}</h3>
                                                                             <Badge className={word.status == 0 ? "bg-red-500" : "bg-green-500"}>
                                                                                 {word.status == 0 ? t("table.status0") : t("table.status1")}
                                                                             </Badge>
