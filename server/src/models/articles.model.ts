@@ -13,6 +13,16 @@ export async function findAllArticles(lang: string) {
     }
 }
 
+export async function findArticlesByDate() {
+    try {
+        const [row] = await conn.query<{ id: number, main_image: string }[] & RowDataPacket[]>("SELECT id, main_image FROM articles WHERE delete_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los artículos.");
+    }
+}
+
 export async function countArticles() {
     try {
         const [row] = await conn.query<{ count: number }[] & RowDataPacket[]>("SELECT COUNT(*) AS count FROM articles WHERE status = 1");
@@ -106,5 +116,25 @@ export async function modifyStatusArticle(id: number, status: 0 | 1) {
     } catch (error) {
         console.error(error);
         throw new Error("Error al actualizar el estado del artículo.");
+    }
+}
+
+export async function deleteArticle(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM articles WHERE id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar el artículo.");
+    }
+}
+
+export async function deleteArticleTranslations(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM articles_translations WHERE article_id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar las traducciones del artículo.");
     }
 }

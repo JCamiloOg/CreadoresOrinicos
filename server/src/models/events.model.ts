@@ -12,6 +12,16 @@ export async function findAllEvents(lang: string) {
     }
 }
 
+export async function findEventsByDate() {
+    try {
+        const [row] = await conn.query<{ id: number, image: string }[] & RowDataPacket[]>("SELECT id, image FROM events WHERE delete_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los eventos.");
+    }
+}
+
 export async function countEvents() {
     try {
         const [row] = await conn.query<{ count: number }[] & RowDataPacket[]>("SELECT COUNT(*) AS count FROM events WHERE status = 1");
@@ -106,5 +116,25 @@ export async function modifyStatusEvent(status: 0 | 1, id: number) {
     } catch (error) {
         console.error(error);
         throw new Error("Error al actualizar el estado del evento.");
+    }
+}
+
+export async function deleteEvent(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM events WHERE id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar el evento.");
+    }
+}
+
+export async function deleteEventTranslations(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM events_translations WHERE event_id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar las traducciones del evento.");
     }
 }

@@ -15,6 +15,16 @@ export async function findUserByID(id: string) {
     }
 }
 
+export async function findUsersByDate() {
+    try {
+        const [row] = await conn.query<{ id: number }[] & RowDataPacket[]>("SELECT id FROM users WHERE delete_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+        return row;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener los usuarios.");
+    }
+}
+
 export async function findUserByUserName(username: string) {
     try {
         const [row] = await conn.query<userByUserName[]>("SELECT id, status, password, username FROM users WHERE username = ?", [username]);
@@ -92,5 +102,15 @@ export async function insertUser(id: string, username: string, password: string)
     } catch (error) {
         console.error(error);
         throw new Error("Error al crear el usuario.");
+    }
+}
+
+export async function deleteUser(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM users WHERE id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar el usuario.");
     }
 }

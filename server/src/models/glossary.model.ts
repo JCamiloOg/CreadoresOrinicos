@@ -12,6 +12,17 @@ export async function findAllWords(lang: string) {
     }
 }
 
+export async function findWordsByDate() {
+    try {
+        const [row] = await conn.query<{ id: number }[] & RowDataPacket[]>("SELECT id FROM glossary WHERE delete_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
+        return row;
+
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al obtener las palabras.");
+    }
+}
+
 export async function countWords() {
     try {
         const [row] = await conn.query<{ count: number }[] & RowDataPacket[]>("SELECT COUNT(*) AS count FROM glossary WHERE status = 1");
@@ -88,3 +99,22 @@ export async function modifyStatusWord(id: number, status: 0 | 1) {
     }
 }
 
+export async function deleteWord(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM glossary WHERE id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar la palabra.");
+    }
+}
+
+export async function deleteWordTranslations(id: number) {
+    try {
+        const [result] = await conn.query<ResultSetHeader>("DELETE FROM glossary_translations WHERE word_id = ?", [id]);
+        return result;
+    } catch (error) {
+        console.error(error);
+        throw new Error("Error al eliminar las traducciones de la palabra.");
+    }
+}
