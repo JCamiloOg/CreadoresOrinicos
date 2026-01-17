@@ -52,8 +52,8 @@ export default function CardArticle({ article, idx, hasNext }: Props) {
                     </p>
                 </div>
 
-                <h5 className="text-base">{new Intl.DateTimeFormat(i18n.language, { day: "2-digit" }).format(new Date(article.date))}</h5>
-                <h6 className="text-base">{new Intl.DateTimeFormat(i18n.language, { month: "long" }).format(new Date(article.date)).toUpperCase()}</h6>
+                <h5 className="text-base font-liberation">{new Intl.DateTimeFormat(i18n.language, { day: "2-digit" }).format(new Date(article.date))}</h5>
+                <h6 className="text-base font-liberation">{new Intl.DateTimeFormat(i18n.language, { month: "long" }).format(new Date(article.date)).toUpperCase()}</h6>
 
 
                 <ul>
