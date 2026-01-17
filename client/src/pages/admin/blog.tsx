@@ -684,11 +684,11 @@ export default function BlogAdmin() {
                                     {...formCreate.register("description_es", {
                                         required: t("errors.requiredDescription"),
                                         minLength: {
-                                            value: 10,
+                                            value: 50,
                                             message: t("errors.minLengthDescription")
                                         },
                                         maxLength: {
-                                            value: 1000,
+                                            value: 20000,
                                             message: t("errors.maxLengthDescription")
                                         }
                                     })} />
@@ -701,11 +701,11 @@ export default function BlogAdmin() {
                                     {...formCreate.register("description_en", {
                                         required: t("errors.requiredDescription"),
                                         minLength: {
-                                            value: 10,
+                                            value: 50,
                                             message: t("errors.minLengthDescription")
                                         },
                                         maxLength: {
-                                            value: 1000,
+                                            value: 20000,
                                             message: t("errors.maxLengthDescription")
                                         }
                                     })} />
@@ -741,7 +741,7 @@ export default function BlogAdmin() {
                     <DialogHeader>
                         <DialogTitle>{t("dialogs.viewMore.titleDialog")}</DialogTitle>
                     </DialogHeader>
-                    <div className="grid grid-cols-12 space-y-5 max-h-[550px] overflow-auto">
+                    <div className="grid grid-cols-12 space-y-5 max-h-[550px] scrollMin overflow-auto">
                         <div className="col-span-12 md:col-span-6">
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.title")}</h3>
                             <p>
@@ -842,11 +842,11 @@ export default function BlogAdmin() {
                                     {...formUpdate.register("description", {
                                         required: t("errors.requiredDescription"),
                                         minLength: {
-                                            value: 10,
+                                            value: 50,
                                             message: t("errors.minLengthDescription")
                                         },
                                         maxLength: {
-                                            value: 1000,
+                                            value: 20000,
                                             message: t("errors.maxLengthDescription")
                                         }
                                     })} />

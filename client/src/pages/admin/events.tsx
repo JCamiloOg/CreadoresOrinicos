@@ -730,11 +730,11 @@ export default function EventsAdmin() {
                                     {...formCreate.register("description_es", {
                                         required: t("errors.requiredDescription"),
                                         minLength: {
-                                            value: 10,
+                                            value: 50,
                                             message: t("errors.minLengthDescription")
                                         },
                                         maxLength: {
-                                            value: 1000,
+                                            value: 20000,
                                             message: t("errors.maxLengthDescription")
                                         }
                                     })} />
@@ -747,11 +747,11 @@ export default function EventsAdmin() {
                                     {...formCreate.register("description_en", {
                                         required: t("errors.requiredDescription"),
                                         minLength: {
-                                            value: 10,
+                                            value: 50,
                                             message: t("errors.minLengthDescription")
                                         },
                                         maxLength: {
-                                            value: 1000,
+                                            value: 20000,
                                             message: t("errors.maxLengthDescription")
                                         }
                                     })} />
@@ -890,7 +890,7 @@ export default function EventsAdmin() {
                             <h3 className="text-lg font-bold">{t("dialogs.viewMore.inscription_link")}</h3>
                             {
                                 dataByID?.inscription_link ?
-                                    <a className="text-blue-500 hover:underline hover:text-blue-500/50" target="_blank" href={dataByID.inscription_link}>
+                                    <a className="text-blue-500 hover:underline wrap-break-word hover:text-blue-500/50" target="_blank" href={dataByID.inscription_link}>
                                         {dataByID.inscription_link}
                                     </a>
                                     :
@@ -1034,11 +1034,11 @@ export default function EventsAdmin() {
                                 {...formUpdateVersion.register("description", {
                                     required: t("errors.requiredDescription"),
                                     minLength: {
-                                        value: 10,
+                                        value: 50,
                                         message: t("errors.minLengthDescription")
                                     },
                                     maxLength: {
-                                        value: 1000,
+                                        value: 20000,
                                         message: t("errors.maxLengthDescription")
                                     }
                                 })} />

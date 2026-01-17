@@ -559,7 +559,7 @@ export default function UsersAdmin() {
 
             {/* Dialog update */}
             <Dialog open={dialogUpdate} onOpenChange={setDialogUpdate}>
-                <DialogContent className="sm:max-w-7xl">
+                <DialogContent className="">
                     <DialogHeader>
                         <DialogTitle>{t("dialogs.update.titleDialog")} - {dataByID?.username}</DialogTitle>
                     </DialogHeader>

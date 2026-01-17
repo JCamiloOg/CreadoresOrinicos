@@ -583,7 +583,7 @@ export default function GlossaryAdmin() {
                                                 message: t("errors.minLengthDefinition")
                                             },
                                             maxLength: {
-                                                value: 1000,
+                                                value: 5000,
                                                 message: t("errors.maxLengthDefinition")
                                             }
                                         })}
@@ -601,7 +601,7 @@ export default function GlossaryAdmin() {
                                                 message: t("errors.minLengthDefinition")
                                             },
                                             maxLength: {
-                                                value: 1000,
+                                                value: 5000,
                                                 message: t("errors.maxLengthDefinition")
                                             }
                                         })}
@@ -619,7 +619,7 @@ export default function GlossaryAdmin() {
 
             {/* Dialog update */}
             <Dialog open={dialogUpdate} onOpenChange={setDialogUpdate}>
-                <DialogContent className="sm:max-w-7xl">
+                <DialogContent className="">
                     <DialogHeader>
                         <DialogTitle>{t("dialogs.update.titleDialog")} - {dataByID?.lang.toUpperCase()}</DialogTitle>
                     </DialogHeader>
@@ -657,7 +657,7 @@ export default function GlossaryAdmin() {
                                                 message: t("errors.minLengthDefinition")
                                             },
                                             maxLength: {
-                                                value: 1000,
+                                                value: 5000,
                                                 message: t("errors.maxLengthDefinition")
                                             }
                                         })}
