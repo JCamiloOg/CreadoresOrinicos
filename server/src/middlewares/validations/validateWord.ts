@@ -28,7 +28,7 @@ export const validateCreateWord = [
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:isStringDescription", req.lang);
         })
-        .isLength({ min: 10, max: 1000 })
+        .isLength({ min: 10, max: 5000 })
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:minMaxDescription", req.lang);
         })
@@ -67,7 +67,7 @@ export const validateUpdateWord = [
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:isStringDescription", req.lang);
         })
-        .isLength({ min: 10, max: 1000 })
+        .isLength({ min: 10, max: 5000 })
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:minMaxDescription", req.lang);
         })

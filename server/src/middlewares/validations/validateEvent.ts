@@ -28,7 +28,7 @@ export const validateCreateEvent = [
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:isStringDescription", req.lang);
         })
-        .isLength({ min: 10, max: 1000 })
+        .isLength({ min: 10, max: 20000 })
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:minMaxDescription", req.lang);
         }),
@@ -133,7 +133,7 @@ export const validateUpdateEventTranslations = [
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:isStringDescription", req.lang);
         })
-        .isLength({ min: 10, max: 1000 })
+        .isLength({ min: 10, max: 20000 })
         .withMessage((_, { req }: { req: Request }) => {
             return t("validate:minMaxDescription", req.lang);
         })
