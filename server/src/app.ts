@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import routes from "@/routes/index.routes";
 import morgan from "morgan";
 import { languageMiddlware } from "./middlewares/language.middleware";
+import { startCleanupJob } from "./jobs/deleteData.job";
 const app = express();
 
 app.use(cors({
@@ -13,6 +14,8 @@ app.use(cors({
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
+
+startCleanupJob();
 
 app.use(morgan("dev"));
 app.use(express.json());
