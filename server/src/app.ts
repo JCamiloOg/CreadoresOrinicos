@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { CORS_ORIGIN } from "./config/env";
+import { CORS_ORIGIN, NODE_ENV } from "./config/env";
 import cookieParser from "cookie-parser";
 import routes from "@/routes/index.routes";
 import morgan from "morgan";
@@ -18,7 +18,9 @@ app.use(cors({
 
 startCleanupJob();
 
-app.use(morgan("dev"));
+if (NODE_ENV === "development") app.use(morgan("dev"));
+if (NODE_ENV === "production") app.use(morgan("combined"));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
