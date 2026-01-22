@@ -6,6 +6,7 @@ import routes from "@/routes/index.routes";
 import morgan from "morgan";
 import { languageMiddlware } from "./middlewares/language.middleware";
 import { startCleanupJob } from "./jobs/deleteData.job";
+import path from "path";
 const app = express();
 
 app.use(cors({
@@ -24,11 +25,17 @@ app.use(cookieParser());
 
 app.use(languageMiddlware);
 
+app.use(express.static(path.join(__dirname, "../public")));
+
+console.log(__dirname);
+
 app.use("/images/articles", express.static("public/articles"));
 app.use("/images/events", express.static("public/events"));
 
 app.use("/api", routes);
 
-// app.use(errorHandler);
+app.use((req, res) => {
+    res.sendFile(path.join(__dirname, "../public/index.html"));
+});
 
 export default app;
