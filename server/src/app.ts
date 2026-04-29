@@ -36,8 +36,5 @@ app.use("/images/events", express.static("public/events"));
 
 app.use("/api", routes);
 
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, "../public/index.html"));
-});
 
 export default app;
