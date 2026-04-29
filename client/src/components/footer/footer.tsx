@@ -16,11 +16,11 @@ export default function Footer() {
     };
     return (
         <div className="w-full mt-20 md:pb-0 pb-5 relative">
-            <div className="absolute md:bottom-2 bottom-0 left-1/2 -translate-x-1/2  ">
+            <div className="md:block hidden absolute md:bottom-2 bottom-0 left-1/2 -translate-x-1/2">
                 <span className="font-romance text-gold">
                     {lang == "es" ? "Desarrollado por:" : "Powered by:"}
                 </span>
-                <a className="text-baseYellow font-romance hover:underline hover:text-baseYellow/50" target="_blank" href="https://instagram.com/jncamilo.dev">
+                <a className="text-baseYellow font-romance underline md:no-underline hover:underline hover:text-baseYellow/50" target="_blank" href="https://instagram.com/jncamilo.dev">
                     Juan Camilo Osorio
                 </a>
             </div>
@@ -51,7 +51,16 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
+            <div className="flex md:hidden  items-center justify-center">
+                <span className="font-romance text-gold">
+                    {lang == "es" ? "Desarrollado por:" : "Powered by:"}
+                </span>
+                <a className="text-baseYellow font-romance underline md:no-underline hover:underline hover:text-baseYellow/50" target="_blank" href="https://instagram.com/jncamilo.dev">
+                    Juan Camilo Osorio
+                </a>
+            </div>
+        </div >
     );
 }

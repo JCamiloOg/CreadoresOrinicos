@@ -31,7 +31,7 @@ export default function AboutUs() {
     const location = useLocation();
 
     useEffect(() => {
-        document.title = lang === "en" ? "About Us" : "Quienes somos";
+        document.title = lang === "en" ? "About us" : "Quienes somos";
     }, [lang]);
 
     useEffect(() => {

@@ -5,7 +5,7 @@ import SplitType from "split-type";
 import { CustomEase } from "gsap/all";
 import { useTranslation } from "react-i18next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWhatsapp, faInstagram, faFacebook, faTiktok, faYoutube, faSpotify } from "@fortawesome/free-brands-svg-icons";
+import { faWhatsapp, faInstagram, faFacebook, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 gsap.registerPlugin(CustomEase);
 
@@ -263,7 +263,7 @@ export default function SectionSocial() {
                     </div>
                 </div>
 
-                <div onClick={() => handleRowClick(4)} ref={(el) => saveRowRef(el, 4)} className="color-row bg-[#040404] light-text">
+                {/* <div onClick={() => handleRowClick(4)} ref={(el) => saveRowRef(el, 4)} className="color-row bg-[#040404] light-text">
                     <div className="color-content">
                         <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="color-hex block font-times">{t("socialNetworks.copyLink")}</div>
                         <div className="color-number hidden md:block font-romance">Tik tok</div>
@@ -278,13 +278,12 @@ export default function SectionSocial() {
                                 <h2>Tik tok</h2>
                             </div>
                             <div className="expanded-details">
-                                {/* <div className="detail-number">C - [05]</div> */}
                                 <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex font-times">{t("socialNetworks.copyLink")}</div>
                                 <div onClick={(e) => { e.stopPropagation(); }} className="detail-oklch font-times">{t("socialNetworks.goToLink")}</div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 <div onClick={() => handleRowClick(5)} ref={(el) => saveRowRef(el, 5)} className="color-row bg-[#ee0f0f] light-text">
                     <div className="color-content">
@@ -309,7 +308,7 @@ export default function SectionSocial() {
                     </div>
                 </div>
 
-                <div onClick={() => handleRowClick(6)} ref={(el) => saveRowRef(el, 6)} className="color-row bg-[#1db954] light-text">
+                {/* <div onClick={() => handleRowClick(6)} ref={(el) => saveRowRef(el, 6)} className="color-row bg-[#1db954] light-text">
                     <div className="color-content">
                         <div onClick={(e) => { e.stopPropagation(); openLink("https://open.spotify.com/user/31rnsqm62s2cdlv4fdvtcbv3l24u?si=TZIgjkMBTr-ZsqqIFt1ufg"); }} className="color-hex block font-times">{t("socialNetworks.goToLink")}</div>
                         <div className="color-number hidden md:block font-romance">Spotify</div>
@@ -324,13 +323,12 @@ export default function SectionSocial() {
                                 <h2>Spotify</h2>
                             </div>
                             <div className="expanded-details">
-                                {/* <div className="detail-number">C - [05]</div> */}
                                 <div onClick={(e) => { e.stopPropagation(); copy(""); }} className="detail-hex font-times">{t("socialNetworks.copyLink")}</div>
                                 <div onClick={(e) => { e.stopPropagation(); openLink("https://open.spotify.com/user/31rnsqm62s2cdlv4fdvtcbv3l24u?si=TZIgjkMBTr-ZsqqIFt1ufg"); }} className="detail-oklch font-times">{t("socialNetworks.goToLink")}</div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
             </div>
             <div className="copy-notification">{t("socialNetworks.copied")}</div>
