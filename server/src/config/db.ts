@@ -6,7 +6,7 @@ const conn = sql.createPool({
     user: DB_USER,
     password: DB_PASSWORD,
     database: DB_DATABASE,
-    port: DB_PORT
+    port: Number(DB_PORT),
 });
 
 conn.on("connection", () => {
