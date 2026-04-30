@@ -16,3 +16,4 @@ export const HOSTNAME = process.env.HOSTNAME;
 export const CORS_ORIGIN = process.env.CORS_ORIGIN;
 export const SECRET_KEY = process.env.SECRET_KEY;
 export const NODE_ENV = process.env.NODE_ENV;
+export const DB_PORT = process.env.DB_PORT;
