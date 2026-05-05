@@ -9,12 +9,16 @@ import { startCleanupJob } from "./jobs/deleteData.job";
 import path from "path";
 const app = express();
 
+
+
 app.use(cors({
     origin: CORS_ORIGIN,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
+
+app.options(/.*/, cors());
 
 startCleanupJob();
 
